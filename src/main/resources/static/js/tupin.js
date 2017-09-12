@@ -1,14 +1,27 @@
 $(function(){
 
-    /*$(window).scroll(function () {
-        var $body = $("body");
-        console.log($(document).height()+" "+$(this).scrollTop()+" "+$("#fh5co-board").height());
-        /!*判断窗体高度与竖向滚动位移大小相加 是否 超过内容页高度*!/
-        if ($(document).height() - $(this).scrollTop() - $("#fh5co-board").height()<100) {
-            console.log($(document).height()+" "+$(this).scrollTop()+" "+$("#fh5co-board").height());
-            getImgs();
+    //返回顶部
+    $(window).scroll(function(){
+        var sc=$(window).scrollTop();
+        if(sc>500){
+            $("#goTop").fadeIn();
+        }else{
+            $("#goTop").fadeOut();
         }
-    });*/
+    });
+
+    $("#goTop").hover(
+        function(){
+            $("#img").attr("src","images/topb.gif");
+        },
+        function(){
+            $("#img").attr("src","images/topw.gif");
+        }
+    );
+
+    $("#goTop").click(function(){
+        $('body,html').animate({scrollTop:0},300);
+    });
 
     var page = 0;
     var url = "api/imgs";
@@ -53,15 +66,19 @@ $(function(){
 
            $.each(content,function (index, val) {
 
+               // 构造html元素
                var abox =  document.createElement("div");
                abox.setAttribute("class","animate-box");
+
                var aimg =  document.createElement("a");
                aimg.setAttribute("href",val.img);
                aimg.setAttribute("class","image-popup fh5co-board-img");
+
                var img = document.createElement("img");
                img.setAttribute("src",val.img);
                aimg.appendChild(img);
                abox.appendChild(aimg);
+
                var dtitle = document.createElement("div");
                dtitle.setAttribute("class","fh5co-desc");
                dtitle.innerHTML = val.title;
@@ -71,9 +88,12 @@ $(function(){
                newNode.appendChild(abox);
                newNode.appendChild(dtitle);
 
+               //动态增加瀑布流元素
                salvattore.appendElements(fboard,[newNode]);
 
+               //对新元素再次应用插件
                magnifPopup();
+               //若无再次应用此插件会造成图片不显示
                animateBoxWayPoint();
             });
         }

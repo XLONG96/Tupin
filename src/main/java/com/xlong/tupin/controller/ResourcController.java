@@ -24,4 +24,5 @@ public class ResourcController {
         Pageable pageable = new PageRequest(page,size,sort);
         return tupinRepository.findAll(pageable);
     }
+
 }

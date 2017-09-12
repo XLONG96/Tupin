@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Hydrogen &mdash; A free HTML5 Template </title>
+	<title>Pricing </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -24,12 +24,15 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 
+	<!-- base
+	<base href="/tupin/static/">-->
+
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
 
-	<!-- Google Webfonts -->
+	<!-- Google Webfonts
 	<link href='http://fonts.useso.com/css?family=Roboto:400,300,100,500' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>-->
 	
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
@@ -41,6 +44,8 @@
 	<link rel="stylesheet" href="css/salvattore.css">
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="css/style.css">
+	<!-- Own Style -->
+	<link rel="stylesheet" href="css/tupin.css">
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -53,12 +58,12 @@
 		
 	<div id="fh5co-offcanvass">
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
-		<h1 class="fh5co-logo"><a class="navbar-brand" href="index.html">Hydrogen</a></h1>
+		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
 		<ul>
-			<li><a href="index.html">Home</a></li>
-			<li><a href="about.html">About</a></li>
-			<li class="active"><a href="pricing.html">Pricing</a></li>
-			<li><a href="contact.html">Contact</a></li>
+			<li><a href="home">Home</a></li>
+			<li><a href="album">Album</a></li>
+			<li class="active"><a href="pricing">Pricing</a></li>
+			<li><a href="about">About</a></li>
 		</ul>
 		<h3 class="fh5co-lead">Connect with us</h3>
 		<p class="fh5co-social-icons">
@@ -74,67 +79,31 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-					<a class="navbar-brand" href="index.html">Hydrogen</a>		
+					<a class="navbar-brand" href="home">TUPIN</a>
 				</div>
 			</div>
 		</div>
 	</header>
 	<!-- END .header -->
-	
-	
-	<div id="fh5co-main">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2>Pricing</h2>
-					<div class="fh5co-spacer fh5co-spacer-sm"></div>
-					<div class="row">
-						<div class="col-md-4">
-							<div class="fh5co-pricing-table">
-								<h3>Starter</h3>
-								<ul class="fh5co-list-check">
-									<li class="fh5co-include">5 users</li>
-									<li class="fh5co-include">10 projects</li>
-									<li>10GB amount of space</li>
-									<li>5 e-mail accounts</li>
-								</ul>
-								<a href="#" class="btn btn-block btn-sm btn-outline">Sign up</a>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="fh5co-pricing-table">
-								<h3>Basic</h3>
-								<ul class="fh5co-list-check">
-									<li class="fh5co-include">5 users</li>
-									<li class="fh5co-include">10 projects</li>
-									<li class="fh5co-include">10GB amount of space</li>
-									<li>5 e-mail accounts</li>
-								</ul>
-								<a href="#" class="btn btn-block btn-sm btn-primary">Sign up</a>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="fh5co-pricing-table">
-								<h3>Pro</h3>
-								<ul class="fh5co-list-check">
-									<li class="fh5co-include">5 users</li>
-									<li class="fh5co-include">10 projects</li>
-									<li class="fh5co-include">10GB amount of space</li>
-									<li class="fh5co-include">5 e-mail accounts</li>
-								</ul>
-								<a href="#" class="btn btn-block btn-sm btn-outline">Sign up</a>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-        		
-        	</div>
-       </div>
+
+	<div class="pic">
+		<div class="pic-upload">
+			<form action="picupload" method="POST" enctype="multipart/form-data">
+				<table>
+					<tr><th><strong>Title</strong></th></tr>
+					<tr><th><input type="text" size="48" name="title"/></th></tr>
+					<tr><th><strong>Choose your picture</strong></th></tr>
+					<tr><th><input type="file" accept="image/png,image/jpeg" name="pic"/></th></tr>
+					<tr><th><div class="pic-preview">
+						<img src="images/pic1.jpg" id="upimg">
+					</div></th></tr>
+					<tr><th><input type="submit" value="submit"/></th></tr>
+				</table>
+			</form>
+		</div>
 	</div>
 
 	<footer id="fh5co-footer">
-		
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
@@ -167,7 +136,25 @@
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
 
-	
+	<script>
+		$(function(){
+            $('input[type=file]').change(function(e) {
+                var file = e.target.files[0];
+                preview(file);
+            });
+
+            function preview(file) {
+                //！！！一定要用原始的方式获取元素，否则无法显示！
+                var img = document.getElementById("upimg");
+                //改变img的src属性
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+		})
+	</script>
 
 	
 	</body>

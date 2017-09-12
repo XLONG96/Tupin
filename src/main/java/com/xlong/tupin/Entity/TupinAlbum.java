@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name="tupin")
-public class Tupin implements Serializable{
+@Table(name="tupin_album")
+public class TupinAlbum implements Serializable{
     @Id
     @GeneratedValue
     private long id;

@@ -1,14 +1,16 @@
 package com.xlong.tupin.TupinRepository;
 
 import com.xlong.tupin.Entity.Tupin;
+import com.xlong.tupin.Entity.TupinAlbum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface TupinRepository extends PagingAndSortingRepository<Tupin,Long>{
+public interface TupinAlbumRepository extends PagingAndSortingRepository<TupinAlbum,Long>{
 
-    Page<Tupin> findAll(Pageable pageable);
+    Page<TupinAlbum> findAll(Pageable pageable);
 
+    TupinAlbum saveAndFlush(TupinAlbum tupinAlbum);
 }

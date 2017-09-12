@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Pricing </title>
+	<title>Album Pricing </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -24,8 +24,8 @@
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
 
-	<!-- base-->
-	<base href="/tupin/static/">
+	<!-- base
+	<base href="/tupin/static/">-->
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -61,9 +61,9 @@
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
 		<ul>
 			<li><a href="home">Home</a></li>
+			<li><a href="album">Album</a></li>
+			<li class="active"><a href="album-pricing">Album-Pricing</a></li>
 			<li><a href="about">About</a></li>
-			<li class="active"><a href="pricing">Pricing</a></li>
-			<li><a href="contact">Contact</a></li>
 		</ul>
 		<h3 class="fh5co-lead">Connect with us</h3>
 		<p class="fh5co-social-icons">
@@ -88,7 +88,7 @@
 
 	<div class="pic">
 		<div class="pic-upload">
-			<from action="albumupload" enctype="multipart/form-data">
+			<form action="albumupload" method="POST" enctype="multipart/form-data">
 				<table>
 					<tr><th><strong>Title</strong></th></tr>
 					<tr><th><input type="text" size="48" name="title"/></th></tr>
@@ -99,7 +99,7 @@
 					</div></th></tr>
 					<tr><th><input type="submit" value="submit"/></th></tr>
 				</table>
-			</from>
+			</form>
 		</div>
 	</div>
 

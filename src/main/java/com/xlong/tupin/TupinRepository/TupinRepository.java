@@ -11,4 +11,5 @@ public interface TupinRepository extends PagingAndSortingRepository<Tupin,Long>{
 
     Page<Tupin> findAll(Pageable pageable);
 
+    Tupin saveAndFlush(Tupin tupin);
 }
