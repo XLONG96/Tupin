@@ -1,6 +1,6 @@
 # Tupin
 异步加载图片瀑布流和小清新相册翻页展示
-##搭建环境
+## 搭建环境
 * Spring Boot + JPA + Thymeleaf
 * 前端JQuery插件
   - Magnific Popup：图片弹出层插件
