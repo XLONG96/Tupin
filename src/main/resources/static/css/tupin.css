@@ -15,8 +15,7 @@
 }
 
 .pic{
-    text-align:center;
-    margin-left:450px;
+    float: left;
 }
 .pic-preview{
     height:320px;

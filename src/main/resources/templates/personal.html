@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Hydrogen &mdash; A free HTML5 Template </title>
+	<title>Pricing </title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -23,6 +23,9 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
+
+	<!-- base
+	<base href="/tupin/static/">-->
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -41,6 +44,8 @@
 	<link rel="stylesheet" href="css/salvattore.css">
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="css/style.css">
+	<!-- Own Style -->
+	<link rel="stylesheet" href="css/tupin.css">
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -56,9 +61,9 @@
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
 		<ul>
 			<li><a href="home">Home</a></li>
+			<li><a href="album">Album</a></li>
+			<li class="active"><a href="pricing">Pricing</a></li>
 			<li><a href="about">About</a></li>
-			<li><a href="pricing">Pricing</a></li>
-			<li class="active"><a href="contact">Contact</a></li>
 		</ul>
 		<h3 class="fh5co-lead">Connect with us</h3>
 		<p class="fh5co-social-icons">
@@ -80,48 +85,70 @@
 		</div>
 	</header>
 	<!-- END .header -->
-	
-	
+
 	<div id="fh5co-main">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
-					<h2>Contact</h2>
-					<div class="fh5co-spacer fh5co-spacer-sm"></div>
-					<form action="#">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="My Name is ">
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="XLong">
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="email" class="form-control" placeholder="Email Address:1073501156@qq.com">
-								</div>
-								<div class="form-group">
-									<textarea name="message" id="message" cols="30" class="form-control" rows="10"></textarea>
-								</div>
-								<div class="form-group">
-									<!--<input type="submit" class="btn btn-primary" value="Send Message">-->
-								</div>
-							</div>
+				<div class="col-md-8 col-md-offset-0">
+					<!-- tupin -->
+					<div class="pic">
+						<div class="pic-upload">
+							<form action="pic-upload" method="POST" enctype="multipart/form-data">
+								<table>
+									<tr><th><strong>Title</strong></th></tr>
+									<tr><th><input type="text" size="48" name="title"/></th></tr>
+									<tr><th><strong>Choose your picture</strong></th></tr>
+									<tr><th><input type="file" accept="image/png,image/jpeg" name="pic"/></th></tr>
+									<tr><th><div class="pic-preview">
+										<img src="images/pic1.jpg" id="upimg">
+									</div></th></tr>
+									<tr><th><input type="submit" value="submit"/></th></tr>
+								</table>
+							</form>
 						</div>
-					</form>
-					
+					</div>
+
+					<!-- album -->
+					<div class="pic">
+						<div class="pic-upload">
+							<form action="album-upload" method="POST" enctype="multipart/form-data">
+								<table>
+									<tr><th><strong>Title</strong></th></tr>
+									<tr><th><input type="text" size="48" name="title"/></th></tr>
+									<tr><th><strong>Choose your picture</strong></th></tr>
+									<tr><th><input type="file" accept="image/png,image/jpeg" name="album"/></th></tr>
+									<tr><th><div class="pic-preview">
+										<img src="images/pic1.jpg" id="upalbum">
+									</div></th></tr>
+									<tr><th><input type="submit" value="submit"/></th></tr>
+								</table>
+							</form>
+						</div>
+					</div>
+
+					<!-- md -->
+					<div class="pic">
+						<div class="pic-upload">
+							<form action="blog-upload" method="POST" enctype="multipart/form-data">
+								<table>
+									<tr><th><strong>Theme</strong></th></tr>
+									<tr><th><input type="text" name="theme"/></th></tr>
+									<tr><th><strong>Summary</strong></th></tr>
+									<tr><th><textarea type="text" name="summary"/></th></tr>
+									<tr><th><strong>Choose your Markdown file</strong></th></tr>
+									<tr><th><input type="file" name="fblog"/></th></tr>
+									<tr><th></th></tr>
+									<tr><th><input type="submit" value="submit"/></th></tr>
+								</table>
+							</form>
+						</div>
+					</div>
 				</div>
-        		
-        	</div>
-       </div>
+			</div>
+		</div>
 	</div>
 
 	<footer id="fh5co-footer">
-		
 		<div class="container">
 			<div class="row row-padded">
 				<div class="col-md-12 text-center">
@@ -154,7 +181,41 @@
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
 
-	
+	<script>
+		$(function(){
+            $('input[name=pic]').change(function(e) {
+                var file = e.target.files[0];
+                preview(file);
+            });
+
+            function preview(file) {
+                //！！！一定要用原始的方式获取元素，否则无法显示！
+                var img = document.getElementById("upimg");
+                //改变img的src属性
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+
+            $('input[name=album]').change(function(e) {
+                var file = e.target.files[0];
+                preview2(file);
+            });
+
+            function preview2(file) {
+                //！！！一定要用原始的方式获取元素，否则无法显示！
+                var img = document.getElementById("upalbum");
+                //改变img的src属性
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+		})
+	</script>
 
 	
 	</body>

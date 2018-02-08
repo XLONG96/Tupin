@@ -12,13 +12,24 @@
 *
 * ======================================================= */
 body {
-  font-family: sans-serif;
-  line-height: 1.8;
-  font-size: 20px;
-  background: #f0f0f0;
+  font-family: "Roboto", arial, sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 26px;
+  color: #818892;
+  background: #f5f6f7;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #333333;
+  background-color: #fff;
   font-weight: 300;
   overflow-x: hidden;
 }
+
 body.menu-show {
   overflow: hidden;
   position: fixed;
@@ -37,26 +48,19 @@ body.menu-show {
   overflow-y: hidden;
 }
 
-a {
-  color: #FA7E0A;
-  -webkit-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-}
-a:hover {
-  text-decoration: underline;
-  color: #FA7E0A;
-}
-a:focus, a:active {
-  outline: none;
-}
 
-p, span {
-  margin-bottom: 1.5em;
-  font-size: 18px;
-  color: #727272;
-  font-weight: 300;
-  font-family: "Roboto", Arial, serif;
+a {
+  color: #EF5353;
+  text-decoration: none;
+}
+a:hover, a:focus {
+  color: #e11515;
+  text-decoration: underline;
+}
+a:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
 }
 
 span {
@@ -452,7 +456,7 @@ header .fh5co-navbar-brand .fh5co-logo:active, header .fh5co-navbar-brand .fh5co
 .intro-heading {
   font-size: 40px;
   font-weight: 300;
-  line-height: 1.5;
+  line-height: 1.1;
 }
 @media screen and (max-width: 768px) {
   .intro-heading {

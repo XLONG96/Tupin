@@ -35,23 +35,23 @@ public class HomeController {
         return "album";
     }
 
+    @RequestMapping(value="/summary",method=RequestMethod.GET)
+    public String summary(){
+        return "summary";
+    }
+
+    @RequestMapping(value="/blog",method=RequestMethod.GET)
+    public String blog(){
+        return "blog";
+    }
+
+    @RequestMapping(value="/personal",method=RequestMethod.GET)
+    public String personal(){
+        return "personal";
+    }
+
     @RequestMapping(value="/about",method=RequestMethod.GET)
     public String about(){
         return "about";
-    }
-
-    @RequestMapping(value="/pricing",method=RequestMethod.GET)
-    public String pricing(){
-        return "pricing";
-    }
-
-    @RequestMapping(value="/album-pricing",method=RequestMethod.GET)
-    public String Albumpricing(){
-        return "album-pricing";
-    }
-
-    @RequestMapping(value="/contact",method=RequestMethod.GET)
-    public String contact(){
-        return "contact";
     }
 }

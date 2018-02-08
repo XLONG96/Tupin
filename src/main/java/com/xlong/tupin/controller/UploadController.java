@@ -1,7 +1,9 @@
 package com.xlong.tupin.controller;
 
+import com.xlong.tupin.Entity.Blog;
 import com.xlong.tupin.Entity.Tupin;
 import com.xlong.tupin.Entity.TupinAlbum;
+import com.xlong.tupin.TupinRepository.BlogRepository;
 import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
 import com.xlong.tupin.TupinRepository.TupinRepository;
 import org.slf4j.Logger;
@@ -30,7 +32,10 @@ public class UploadController {
     @Autowired
     TupinAlbumRepository tupinAlbumRepository;
 
-    @RequestMapping(value="/picupload",method=RequestMethod.POST)
+    @Autowired
+    BlogRepository blogRepository;
+
+    @RequestMapping(value="/pic-upload",method=RequestMethod.POST)
     public String picUpload(@RequestParam("title") String title, @RequestPart("pic") MultipartFile pic, HttpServletRequest request) throws IOException {
         logger.info("XXX in picload");
 
@@ -57,23 +62,23 @@ public class UploadController {
             tupinRepository.saveAndFlush(tupin);
         }
 
-        return "pricing";
+        return "personal";
     }
 
-    @RequestMapping(value="/albumupload", method=RequestMethod.POST)
-    public String albumUpload(@RequestParam("title") String title, @RequestPart("pic") MultipartFile pic, HttpServletRequest request) throws IOException {
+    @RequestMapping(value="/album-upload", method=RequestMethod.POST)
+    public String albumUpload(@RequestParam("title") String title, @RequestPart("album") MultipartFile album, HttpServletRequest request) throws IOException {
         String filedir = request.getSession().getServletContext().getRealPath("/")+
                 "images/headImg";
         String filename = UUID.randomUUID().toString()+".jpg";
 
-        if(!pic.isEmpty()){
+        if(!album.isEmpty()){
             File dir = new File(filedir);
             if(!dir.exists()) {
                 dir.mkdirs();
             }
 
             File targetFile = new File(filedir+"/"+filename);
-            pic.transferTo(targetFile);
+            album.transferTo(targetFile);
 
             TupinAlbum tupinAlbum = new TupinAlbum();
             Date date = new Date();
@@ -86,6 +91,41 @@ public class UploadController {
         }
 
 
-        return "album-pricing";
+        return "personal";
+    }
+
+    @RequestMapping(value="/blog-upload", method=RequestMethod.POST)
+    public String blogUpload(@RequestParam("theme") String theme,@RequestParam("summary") String summary,
+                             @RequestPart("fblog") MultipartFile fblog, HttpServletRequest request) throws IOException {
+        String filedir = request.getSession().getServletContext().getRealPath("/")+
+                "blogs/";
+
+        if(!fblog.isEmpty()){
+            String filename = fblog.getOriginalFilename();
+            File dir = new File(filedir);
+
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File targetFile = new File(filedir + filename);
+            fblog.transferTo(targetFile);
+
+            System.out.println("XXX fileContentType :"+fblog.getContentType());
+
+            Blog blog = new Blog();
+            Date date = new Date();
+
+            blog.setTitle(filename);
+            blog.setTheme(theme);
+            blog.setVisitNum(0);
+            blog.setPublicTime(date);
+            blog.setSummary(summary + "...");
+            blog.setMdContent(filedir + filename);
+
+            blogRepository.saveAndFlush(blog);
+        }
+
+        return "personal";
     }
 }
