@@ -3096,7 +3096,8 @@ legend {
 }
 
 label {
-  display: inline-block;
+  display: block;
+  color:black;
   max-width: 100%;
   margin-bottom: 5px;
   font-weight: bold;
@@ -7361,18 +7362,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-selection {
-  color: #818892;
-  background: #f9f6f0;
+  color: #f9f6f0;
+  background: #EF5353;
 }
 
 ::-moz-selection {
-  color: #818892;
-  background: #f9f6f0;
+  color: #f9f6f0;
+  background: #EF5353;
 }
 
 ::selection {
-  color: #818892;
-  background: #f9f6f0;
+  color: #f9f6f0;
+  background: #EF5353;
 }
 
 #fh5co-offcanvass {

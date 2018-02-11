@@ -1,4 +1,28 @@
 $(function(){
+
+    //返回顶部
+    $(window).scroll(function(){
+        var sc=$(window).scrollTop();
+        if(sc>500){
+            $("#goTop").fadeIn();
+        }else{
+            $("#goTop").fadeOut();
+        }
+    });
+
+    $("#goTop").hover(
+        function(){
+            $("#img").attr("src","images/topb.gif");
+        },
+        function(){
+            $("#img").attr("src","images/topw.gif");
+        }
+    );
+
+    $("#goTop").click(function(){
+        $('body,html').animate({scrollTop:0},300);
+    });
+
     //获取id参数
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); // 匹配目标参数
@@ -13,6 +37,7 @@ $(function(){
     var id = getQueryString("id");
     var url = "api/blog";
     var abox = document.getElementById("box");
+    var atitle = document.getElementById("tab-title");
     var rendererMD = new marked.Renderer();
     marked.setOptions({
         renderer: rendererMD,
@@ -41,17 +66,26 @@ $(function(){
         function callback(data) {
             var val = data;
 
-            var ah2 = document.createElement("h2");
-            ah2.innerHTML = val.title;
+            var ah1 = document.createElement("h1");
+            ah1.setAttribute("class","text-center");
+            ah1.innerHTML = val.title;
 
+            atitle.innerHTML = val.title;
+
+            var date = new Date(val.publicTime);
             var ap1 = document.createElement("p");
-            ap1.innerHTML = "Post on "+val.publicTime+" | In "+val.theme+" | Visitors "+val.visitNum;
+            ap1.setAttribute("class","text-center");
+            ap1.innerHTML = "Post on "+date.toDateString()+" | In "+val.theme+" | Visitors "+val.visitNum;
+
+            var abr = document.createElement("br");
 
             var ap2 = document.createElement("p");
+            ap2.setAttribute("style","color:black");
             ap2.innerHTML = marked(val.mdContent);
 
-            abox.appendChild(ah2);
+            abox.appendChild(ah1);
             abox.appendChild(ap1);
+            abox.appendChild(abr);
             abox.appendChild(ap2);
         }
     }

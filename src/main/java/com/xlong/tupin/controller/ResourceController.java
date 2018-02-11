@@ -47,6 +47,7 @@ public class ResourceController {
 
         if(blog == null){
             //404
+            return null;
         }
 
         String mdPath = blog.getMdContent();

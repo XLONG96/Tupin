@@ -48,7 +48,16 @@ body.menu-show {
   overflow-y: hidden;
 }
 
-
+p {
+  margin-bottom: 2em;
+  orphans: 3;
+  widows: 3;
+}
+small {
+  font-weight: normal;
+  line-height: 1;
+  color: #777777;
+}
 a {
   color: #EF5353;
   text-decoration: none;

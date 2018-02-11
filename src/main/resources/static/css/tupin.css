@@ -14,16 +14,14 @@
     height:40px;
 }
 
-.pic{
-    float: left;
-}
 .pic-preview{
-    height:320px;
-    width:420px;
-    border:1px solid darkgray;
+    height:324px;
+    width:484px;
+    border:2px solid black;
+    border-radius:5px;
 }
 .pic-preview img{
-    margin:auto;
-    max-height:300px;
-    max-width:400px;
+    border-radius:2px;
+    max-height:320px;
+    max-width:520px;
 }

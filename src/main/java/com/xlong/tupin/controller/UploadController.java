@@ -43,7 +43,7 @@ public class UploadController {
                 "images";
         String filename = UUID.randomUUID().toString()+".jpg";
 
-        if(pic!=null || !pic.isEmpty()){
+        if(!pic.isEmpty()){
             File dir = new File(filedir);
             if(!dir.exists()) {
                 dir.mkdirs();
@@ -91,11 +91,12 @@ public class UploadController {
         }
 
 
-        return "personal";
+        return "personal-album";
     }
 
     @RequestMapping(value="/blog-upload", method=RequestMethod.POST)
-    public String blogUpload(@RequestParam("theme") String theme,@RequestParam("summary") String summary,
+    public String blogUpload(@RequestParam("title") String title,
+            @RequestParam("theme") String theme,@RequestParam("summary") String summary,
                              @RequestPart("fblog") MultipartFile fblog, HttpServletRequest request) throws IOException {
         String filedir = request.getSession().getServletContext().getRealPath("/")+
                 "blogs/";
@@ -116,7 +117,7 @@ public class UploadController {
             Blog blog = new Blog();
             Date date = new Date();
 
-            blog.setTitle(filename);
+            blog.setTitle(title);
             blog.setTheme(theme);
             blog.setVisitNum(0);
             blog.setPublicTime(date);
@@ -126,6 +127,6 @@ public class UploadController {
             blogRepository.saveAndFlush(blog);
         }
 
-        return "personal";
+        return "personal-blog";
     }
 }

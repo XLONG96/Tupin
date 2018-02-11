@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title id="tab-title">Tupin</title>
+	<title>Tupin - 个人</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -23,6 +23,9 @@
 	<meta name="twitter:image" content="" />
 	<meta name="twitter:url" content="" />
 	<meta name="twitter:card" content="" />
+
+	<!-- base
+	<base href="/tupin/static/">-->
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -42,7 +45,7 @@
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="css/style.css">
 	<!-- Own Style -->
-	<link rel="stylesheet" href="css/tupin.css"/>
+	<link rel="stylesheet" href="css/tupin.css">
 	<!-- Modernizr JS -->
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	<!-- FOR IE9 below -->
@@ -53,12 +56,45 @@
 	</head>
 	<body>
 
-	<div id="goTop" class="goTop">
-		<img src="images/topw.gif" id="img"/>
+	<div id="fh5co-offcanvass">
+		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
+		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
+		<ul>
+			<li><a href="home"> 拾 零 </a></li>
+			<li><a href="album"> 宫 格 </a></li>
+			<li><a href="summary"> 随 笔 </a></li>
+			<li class="active"><a href="personal"> 个 人 </a></li>
+			<li><a href="about"> 留 言 区 </a></li>
+		</ul>
 	</div>
 
 	<header id="fh5co-header" role="banner">
+
 		<div class="container">
+			<div class="row">
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse"
+									data-target="#example-navbar-collapse">
+								<span class="sr-only">切换导航</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand" href="home">TUPIN</a>
+						</div>
+						<div class="collapse navbar-collapse" id="example-navbar-collapse">
+							<ul class="nav navbar-nav">
+								<li><a href="personal"> 朝花夕拾 </a></li>
+								<li class="active"><a href="personal-album"> 上传相册 </a></li>
+								<li><a href="personal-blog"> 上传随笔 </a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
@@ -66,36 +102,29 @@
 			</div>
 		</div>
 	</header>
-
-	<div id="fh5co-offcanvass">
-		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
-		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
-		<ul>
-			<li><a href="home"> 拾 零 </a></li>
-			<li><a href="album"> 宫 格 </a></li>
-			<li class="active"><a href="summary"> 随 笔 </a></li>
-			<li><a href="personal"> 个 人 </a></li>
-			<li><a href="about"> 留 言 区 </a></li>
-		</ul>
-	</div>
 	<!-- END .header -->
 
-	
+
+
 	<div id="fh5co-main">
 		<div class="container">
-			<div id="row" class="row">
-				<div id="box" class="col-md-8 col-md-offset-2">
-				</div>
-
+			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<h2> 留 言 区 </h2>
-					<form action="blog-upload" method="POST" enctype="multipart/form-data">
+					<form action="album-upload" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<input type="text" name="name" class="form-control" placeholder="输入你的昵称..."/>
+							<h3> TITLE </h3>
+							<input type="text" name="title" class="form-control"/>
 						</div>
 
 						<div class="form-group">
-							<textarea type="text" name="comment" class="form-control" rows="4">说些什么好呢...</textarea>
+							<h3> 选择你要上传的照片 </h3>
+							<input type="file" accept="image/png,image/jpeg" name="album"/>
+						</div>
+
+						<div class="form-group">
+							<div class="pic-preview">
+								<img src="images/pic1.jpg" id="upimg">
+							</div>
 						</div>
 
 						<div>
@@ -103,21 +132,9 @@
 						</div>
 					</form>
 				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">NAME</strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
-				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">我选择的路</strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
-				</div>
-        	</div>
-       </div>
+			</div>
+		</div>
 	</div>
-
-
 
 	<footer id="fh5co-footer">
 		<div class="container">
@@ -136,6 +153,7 @@
 		</div>
 	</footer>
 
+
 	<!-- jQuery -->
 	<script src="js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
@@ -148,12 +166,29 @@
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<!-- Salvattore -->
 	<script src="js/salvattore.min.js"></script>
-	<!-- Marked -->
-	<script src="js/marked.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
-	<!-- blog JS -->
-	<script src="js/blog.js"></script>
+
+	<script>
+		$(function(){
+            $('input[type=file]').change(function(e) {
+                var file = e.target.files[0];
+                preview(file);
+            });
+
+            function preview(file) {
+                //！！！一定要用原始的方式获取元素，否则无法显示！
+                var img = document.getElementById("upimg");
+                //改变img的src属性
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+		})
+	</script>
+
 	
 	</body>
 </html>

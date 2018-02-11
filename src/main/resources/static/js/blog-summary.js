@@ -1,5 +1,28 @@
 $(function(){
 
+    //返回顶部
+    $(window).scroll(function(){
+        var sc=$(window).scrollTop();
+        if(sc>500){
+            $("#goTop").fadeIn();
+        }else{
+            $("#goTop").fadeOut();
+        }
+    });
+
+    $("#goTop").hover(
+        function(){
+            $("#img").attr("src","images/topb.gif");
+        },
+        function(){
+            $("#img").attr("src","images/topw.gif");
+        }
+    );
+
+    $("#goTop").click(function(){
+        $('body,html').animate({scrollTop:0},300);
+    });
+
     var page = 0;
     var url = "api/summary";
     var row = document.getElementById("row");
@@ -54,8 +77,9 @@ $(function(){
                 var ah2 = document.createElement("h2");
                 ah2.appendChild(ablog);
 
+                var date = new Date(val.publicTime);
                 var ap1 = document.createElement("p");
-                ap1.innerHTML = "Post on "+val.publicTime+" | In "+val.theme+" | Visitors "+val.visitNum;
+                ap1.innerHTML = "Post on "+date.toDateString()+" | In "+val.theme+" | Visitors "+val.visitNum;
 
                 var ap2 = document.createElement("p");
                 ap2.innerHTML = val.summary;

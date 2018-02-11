@@ -50,6 +50,16 @@ public class HomeController {
         return "personal";
     }
 
+    @RequestMapping(value="/personal-album",method=RequestMethod.GET)
+    public String personalAlbum(){
+        return "personal-album";
+    }
+
+    @RequestMapping(value="/personal-blog",method=RequestMethod.GET)
+    public String personalBlog(){
+        return "personal-blog";
+    }
+
     @RequestMapping(value="/about",method=RequestMethod.GET)
     public String about(){
         return "about";
