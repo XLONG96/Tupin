@@ -1,28 +1,5 @@
 $(function(){
 
-    //返回顶部
-    $(window).scroll(function(){
-        var sc=$(window).scrollTop();
-        if(sc>500){
-            $("#goTop").fadeIn();
-        }else{
-            $("#goTop").fadeOut();
-        }
-    });
-
-    $("#goTop").hover(
-        function(){
-            $("#img").attr("src","images/topb.gif");
-        },
-        function(){
-            $("#img").attr("src","images/topw.gif");
-        }
-    );
-
-    $("#goTop").click(function(){
-        $('body,html').animate({scrollTop:0},300);
-    });
-
     var page = 0;
     var url = "api/summary";
     var row = document.getElementById("row");
@@ -71,6 +48,7 @@ $(function(){
                 abox.setAttribute("class","col-md-8 col-md-offset-2");
 
                 var ablog =  document.createElement("a");
+                ablog.setAttribute("style","text-decoration:none");
                 ablog.setAttribute("href","/blog?id="+val.id);
                 ablog.innerHTML = val.title;
 
@@ -87,6 +65,8 @@ $(function(){
                 abox.appendChild(ah2);
                 abox.appendChild(ap1);
                 abox.appendChild(ap2);
+                abox.appendChild(document.createElement("br"));
+                abox.appendChild(document.createElement("hr"));
                 row.appendChild(abox);
             });
         }

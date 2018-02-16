@@ -75,7 +75,7 @@
 			<li><a href="album"> 宫 格 </a></li>
 			<li class="active"><a href="summary"> 随 笔 </a></li>
 			<li><a href="personal"> 个 人 </a></li>
-			<li><a href="about"> 留 言 区 </a></li>
+			<li><a href="about"> 关于本站 </a></li>
 		</ul>
 	</div>
 	<!-- END .header -->
@@ -84,34 +84,29 @@
 	<div id="fh5co-main">
 		<div class="container">
 			<div id="row" class="row">
-				<div id="box" class="col-md-8 col-md-offset-2">
+				<div id="box" class="col-md-8 col-md-offset-2" style="margin-bottom: 50px">
 				</div>
 
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2" style="display: inline">
+					<a id="lastBlog" style="text-decoration:none"><span class="glyphicon glyphicon-chevron-left"></span></a>
+					<a id="nextBlog" class="col-md-8 col-md-offset-10" style="text-decoration:none"><span class="glyphicon glyphicon-chevron-right"></span></a>
+				</div>
+
+				<div class="col-md-8 col-md-offset-2" style="margin-top: 50px">
 					<h2> 留 言 区 </h2>
-					<form action="blog-upload" method="POST" enctype="multipart/form-data">
+					<form method="post">
 						<div class="form-group">
-							<input type="text" name="name" class="form-control" placeholder="输入你的昵称..."/>
+							<input type="text" name="name" class="form-control" placeholder="输入你的昵称..." maxlength="20"/>
 						</div>
 
 						<div class="form-group">
-							<textarea type="text" name="comment" class="form-control" rows="4">说些什么好呢...</textarea>
+							<textarea type="text" name="comment" class="form-control" rows="4" placeholder="说些什么好呢..." maxlength="400"></textarea>
 						</div>
 
 						<div>
-							<input type="submit" value="submit" class="btn btn-default"/>
+							<input type="button" id="submit" value="submit" class="btn btn-default"/>
 						</div>
 					</form>
-				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">NAME</strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
-				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">我选择的路</strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
 				</div>
         	</div>
        </div>
@@ -154,6 +149,8 @@
 	<script src="js/main.js"></script>
 	<!-- blog JS -->
 	<script src="js/blog.js"></script>
+	<!-- ScrollTop JS -->
+	<script src="js/scrollTop.js"></script>
 	
 	</body>
 </html>

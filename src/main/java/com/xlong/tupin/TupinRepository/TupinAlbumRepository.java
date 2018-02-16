@@ -12,4 +12,6 @@ public interface TupinAlbumRepository extends PagingAndSortingRepository<TupinAl
     Page<TupinAlbum> findAll(Pageable pageable);
 
     TupinAlbum saveAndFlush(TupinAlbum tupinAlbum);
+
+    void deleteById(Long id);
 }

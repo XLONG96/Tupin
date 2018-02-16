@@ -3095,6 +3095,9 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 
+strong{
+  color:#EF5353;
+}
 label {
   display: block;
   color:black;

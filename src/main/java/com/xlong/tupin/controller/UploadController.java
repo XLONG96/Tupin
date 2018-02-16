@@ -83,6 +83,10 @@ public class UploadController {
             TupinAlbum tupinAlbum = new TupinAlbum();
             Date date = new Date();
 
+            if(title.equals("") || title == null){
+                title = "default";
+            }
+
             tupinAlbum.setTitle(title);
             tupinAlbum.setImg("images/headImg/"+filename);
             tupinAlbum.setPublicTime(date);
@@ -112,10 +116,16 @@ public class UploadController {
             File targetFile = new File(filedir + filename);
             fblog.transferTo(targetFile);
 
-            System.out.println("XXX fileContentType :"+fblog.getContentType());
-
             Blog blog = new Blog();
             Date date = new Date();
+
+            if(title == null){
+                title = "";
+            }
+
+            if(theme.equals("") || theme == null){
+                theme = "Other";
+            }
 
             blog.setTitle(title);
             blog.setTheme(theme);
@@ -128,5 +138,24 @@ public class UploadController {
         }
 
         return "personal-blog";
+    }
+
+    @RequestMapping(value="/cover-upload", method=RequestMethod.POST)
+    public String coverUpload(@RequestPart("cover") MultipartFile cover, HttpServletRequest request) throws IOException {
+        String filedir = request.getSession().getServletContext().getRealPath("/")+
+                "images";
+
+        if(!cover.isEmpty()){
+            File dir = new File(filedir);
+
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File targetFile = new File(filedir + "/cover_img.jpg");
+            cover.transferTo(targetFile);
+        }
+
+        return "summary";
     }
 }

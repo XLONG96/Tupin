@@ -28,6 +28,15 @@ public class Blog implements Serializable{
     @Column(name="md_path")
     private String mdContent;
 
+    @Transient
+    private long lastId;
+    @Transient
+    private String lastBlogTitle;
+    @Transient
+    private long nextId;
+    @Transient
+    private String nextBlogTitle;
+
     public long getId() {
         return id;
     }
@@ -82,5 +91,37 @@ public class Blog implements Serializable{
 
     public void setMdContent(String mdContent) {
         this.mdContent = mdContent;
+    }
+
+    public long getLastId() {
+        return lastId;
+    }
+
+    public void setLastId(long lastId) {
+        this.lastId = lastId;
+    }
+
+    public String getLastBlogTitle() {
+        return lastBlogTitle;
+    }
+
+    public void setLastBlogTitle(String lastBlogTitle) {
+        this.lastBlogTitle = lastBlogTitle;
+    }
+
+    public long getNextId() {
+        return nextId;
+    }
+
+    public void setNextId(long nextId) {
+        this.nextId = nextId;
+    }
+
+    public String getNextBlogTitle() {
+        return nextBlogTitle;
+    }
+
+    public void setNextBlogTitle(String nextBlogTitle) {
+        this.nextBlogTitle = nextBlogTitle;
     }
 }

@@ -60,44 +60,24 @@
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
 		<ul>
+			<li><a href="personal"> 朝花夕拾 </a></li>
+			<li class="active"><a href="personal-album"> 上传相册 </a></li>
+			<li><a href="personal-blog"> 上传随笔 </a></li>
+			<li><a href="personal-cover"> 上传封面 </a></li>
 			<li><a href="home"> 拾 零 </a></li>
 			<li><a href="album"> 宫 格 </a></li>
 			<li><a href="summary"> 随 笔 </a></li>
-			<li class="active"><a href="personal"> 个 人 </a></li>
-			<li><a href="about"> 留 言 区 </a></li>
+			<li><a href="personal"> 个 人 </a></li>
+			<li><a href="about"> 关于本站 </a></li>
 		</ul>
 	</div>
 
 	<header id="fh5co-header" role="banner">
-
 		<div class="container">
-			<div class="row">
-				<nav class="navbar navbar-default" role="navigation">
-					<div class="container-fluid">
-						<div class="navbar-header">
-							<button type="button" class="navbar-toggle" data-toggle="collapse"
-									data-target="#example-navbar-collapse">
-								<span class="sr-only">切换导航</span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-								<span class="icon-bar"></span>
-							</button>
-							<a class="navbar-brand" href="home">TUPIN</a>
-						</div>
-						<div class="collapse navbar-collapse" id="example-navbar-collapse">
-							<ul class="nav navbar-nav">
-								<li><a href="personal"> 朝花夕拾 </a></li>
-								<li class="active"><a href="personal-album"> 上传相册 </a></li>
-								<li><a href="personal-blog"> 上传随笔 </a></li>
-							</ul>
-						</div>
-					</div>
-				</nav>
-			</div>
-
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
+					<a class="navbar-brand" href="personal-album">上传相册</a>
 				</div>
 			</div>
 		</div>
@@ -113,7 +93,7 @@
 					<form action="album-upload" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
 							<h3> TITLE </h3>
-							<input type="text" name="title" class="form-control"/>
+							<input type="text" name="title" class="form-control" maxlength="20"/>
 						</div>
 
 						<div class="form-group">
@@ -171,6 +151,13 @@
 
 	<script>
 		$(function(){
+            $('input[type=submit]').click(function(){
+                if($('input[type=file]').val() == "" || $('input[type=file]').val() == null){
+                    alert("请先选择要上传的照片!");
+                    return false;
+                }
+            });
+
             $('input[type=file]').change(function(e) {
                 var file = e.target.files[0];
                 preview(file);

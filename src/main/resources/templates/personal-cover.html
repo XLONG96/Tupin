@@ -60,10 +60,10 @@
 		<a href="#" class="fh5co-offcanvass-close js-fh5co-offcanvass-close">Menu <i class="icon-cross"></i> </a>
 		<h1 class="fh5co-logo"><a class="navbar-brand" href="home">TUPIN</a></h1>
 		<ul>
-			<li class="active"><a href="personal"> 朝花夕拾 </a></li>
+			<li><a href="personal"> 朝花夕拾 </a></li>
 			<li><a href="personal-album"> 上传相册 </a></li>
 			<li><a href="personal-blog"> 上传随笔 </a></li>
-			<li><a href="personal-cover"> 上传封面 </a></li>
+			<li class="active"><a href="personal-cover"> 上传封面 </a></li>
 			<li><a href="home"> 拾 零 </a></li>
 			<li><a href="album"> 宫 格 </a></li>
 			<li><a href="summary"> 随 笔 </a></li>
@@ -77,7 +77,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-					<a class="navbar-brand" href="personal">朝花夕拾</a>
+					<a class="navbar-brand" href="personal-cover">上传封面</a>
 				</div>
 			</div>
 		</div>
@@ -90,20 +90,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<form action="pic-upload" method="POST" enctype="multipart/form-data">
+					<form action="cover-upload" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<h3> SUMMARY </h3>
-							<textarea type="text" name="title" class="form-control" rows="4" maxlength="400"></textarea>
-						</div>
-
-						<div class="form-group">
-							<h3> 选择你要上传的照片 </h3>
-							<input type="file" accept="image/png,image/jpeg" name="pic"/>
+							<h3> 选择你要上传的封面照片 </h3>
+							<input type="file" accept="image/png,image/jpeg" name="cover"/>
 						</div>
 
 						<div class="form-group">
 							<div class="pic-preview">
-								<img src="images/pic1.jpg" id="upimg"/>
+								<img src="images/pic1.jpg" id="upimg">
 							</div>
 						</div>
 
@@ -151,12 +146,12 @@
 
 	<script>
 		$(function(){
-		    $('input[type=submit]').click(function(){
+            $('input[type=submit]').click(function(){
                 if($('input[type=file]').val() == "" || $('input[type=file]').val() == null){
                     alert("请先选择要上传的照片!");
                     return false;
                 }
-			});
+            });
 
             $('input[type=file]').change(function(e) {
                 var file = e.target.files[0];

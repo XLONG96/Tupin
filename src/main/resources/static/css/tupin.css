@@ -15,6 +15,7 @@
 }
 
 .pic-preview{
+    text-align: center;
     height:324px;
     width:484px;
     border:2px solid black;
@@ -23,5 +24,5 @@
 .pic-preview img{
     border-radius:2px;
     max-height:320px;
-    max-width:520px;
+    max-width:480px;
 }

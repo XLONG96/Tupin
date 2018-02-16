@@ -7,7 +7,7 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Tupin - 留言区</title>
+	<title>Tupin - 关于本站</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -78,44 +78,37 @@
 	
 	<div id="fh5co-main">
 		<div class="container">
-			<div class="row">
+			<div id="row" class="row">
 				<div class="col-md-8 col-md-offset-2">
 
 					<h2> 关 于 本 站 </h2>
 
-					<p> right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
+					<p> 寒假闲来无事，然后就萌发了做个网站挂服务器上玩玩的想法，遂尝试搭建了属于自己的个人网站。相信大家也逛完了本站（没有的话赶紧去看看），本站综合了各种元素，首页有点类似图片社交网站，随笔那页就有点像博客网站吧。整站的风格有点小清新吧嘿嘿。</p>
 				
-					<p> The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. </p>
+					<p> 再来说说网站的搭建过程吧，其实去年就开始在筹划了，那时候刚接触springboot就想做个Demo试试，没想到就成了网站的雏形了。部分网页是直接拿别人的模板的，自己一边理解一边修改，过程中也遇到了一些困难吧。不过在此要感谢那些免费提供网页模板、js插件和开源软件的开发人员，不得不敬佩开源精神呀！</p>
 
+					<p> 嗯，然后我的项目代码也放在github上了，有兴趣可以看看，有什么问题可以联系我哦！
+						<br/>github地址：<a href="https://github.com/XLONG96/Tupin" target="_blank">https://github.com/XLONG96/Tupin</a>
+						<br/>邮箱地址：<a>1073501156@qq.com</a>
 				</div>
 
 				<hr/>
 
 				<div class="col-md-8 col-md-offset-2">
 					<h2> 留 言 区 </h2>
-					<form action="blog-upload" method="POST" enctype="multipart/form-data">
+					<form method="post">
 						<div class="form-group">
-							<input type="text" name="name" class="form-control" placeholder="输入你的昵称..."/>
+							<input type="text" name="name" class="form-control" placeholder="输入你的昵称..." maxlength="20"/>
 						</div>
 
 						<div class="form-group">
-							<textarea type="text" name="comment" class="form-control" rows="4">说些什么好呢...</textarea>
+							<textarea type="text" name="comment" class="form-control" rows="4" placeholder="说些什么好呢..." maxlength="400"></textarea>
 						</div>
 
 						<div>
-							<input type="submit" value="submit" class="btn btn-default"/>
+							<input type="button" id="submit" value="submit" class="btn btn-default"/>
 						</div>
 					</form>
-				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">NAME </strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
-				</div>
-
-				<div class="col-md-8 col-md-offset-2">
-					<p> <strong style="color:black">我选择的路 </strong> Post on Sun Feb 11 2018</p>
-					<p style="color:black">不错不错，学习了！</p>
 				</div>
         	</div>
        </div>
@@ -153,8 +146,11 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
-
-	
+	<!-- Owner JS -->
+	<script src="js/about.js"></script>
+	<script src="js/tupin.js"></script>
+	<!-- ScrollTop JS -->
+	<script src="js/scrollTop.js"></script>
 
 	
 	</body>
