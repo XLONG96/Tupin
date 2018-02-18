@@ -35,7 +35,7 @@ public class ResourceController {
 
     @RequestMapping(value="/imgs", method= RequestMethod.GET)
     public Page getImgs(@RequestParam(value = "page", defaultValue = "0") Integer page,
-                        @RequestParam(value = "size", defaultValue = "8" ) Integer size){
+                        @RequestParam(value = "size", defaultValue = "24" ) Integer size){
         Sort sort = new Sort(Sort.Direction.DESC,"publicTime");
         Pageable pageable = new PageRequest(page,size,sort);
         return tupinRepository.findAll(pageable);
