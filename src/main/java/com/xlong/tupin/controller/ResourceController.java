@@ -1,11 +1,16 @@
 package com.xlong.tupin.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xlong.tupin.Entity.Blog;
 import com.xlong.tupin.Entity.Comment;
 import com.xlong.tupin.TupinRepository.BlogRepository;
 import com.xlong.tupin.TupinRepository.CommentRepository;
+import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
 import com.xlong.tupin.TupinRepository.TupinRepository;
+import com.xlong.tupin.Utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,17 +33,46 @@ public class ResourceController {
     private TupinRepository tupinRepository;
 
     @Autowired
+    private TupinAlbumRepository tupinAlbumRepository;
+
+    @Autowired
     private BlogRepository blogRepository;
 
     @Autowired
     private CommentRepository commentRepository;
 
-    @RequestMapping(value="/imgs", method= RequestMethod.GET)
-    public Page getImgs(@RequestParam(value = "page", defaultValue = "0") Integer page,
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @RequestMapping(value="/isLogin",method=RequestMethod.GET)
+    public boolean getIsLogin(HttpServletRequest request) throws JsonProcessingException {
+        return request.getSession().getAttribute("admin") != null;
+    }
+
+    @RequestMapping(value="/tupin", method= RequestMethod.GET)
+    public Page getTupin(@RequestParam(value = "page", defaultValue = "0") Integer page,
                         @RequestParam(value = "size", defaultValue = "24" ) Integer size){
         Sort sort = new Sort(Sort.Direction.DESC,"publicTime");
         Pageable pageable = new PageRequest(page,size,sort);
         return tupinRepository.findAll(pageable);
+    }
+
+    @Transactional
+    @RequestMapping(value="/tupin", method=RequestMethod.DELETE)
+    public void delTupin(@RequestParam("id") Long tupinId){
+        tupinRepository.deleteTupinById(tupinId);
+    }
+
+    @Transactional
+    @RequestMapping(value="/album", method=RequestMethod.DELETE)
+    public void delAlbum(@RequestParam("id") Long albumId){
+        tupinAlbumRepository.deleteTupinAlbumById(albumId);
+    }
+
+    @Transactional
+    @RequestMapping(value="/summary", method=RequestMethod.DELETE)
+    public void delSummary(@RequestParam("id") Long blogId){
+        blogRepository.deleteBlogById(blogId);
     }
 
     @RequestMapping(value="/summary", method=RequestMethod.GET)
@@ -99,8 +133,8 @@ public class ResourceController {
     }
 
     @RequestMapping(value="/comment", method=RequestMethod.POST)
-    public void saveComment(@RequestParam(value="name") String name,@RequestParam(value="blogId") Long blogId,
-                            @RequestParam(value="content") String content){
+    public Comment saveComment(@RequestParam(value="name") String name,@RequestParam(value="blogId") Long blogId,
+                            @RequestParam(value="content") String content,HttpServletRequest request){
         if(name != null && content != null){
             Comment comment = new Comment();
             Date date = new Date();
@@ -109,15 +143,38 @@ public class ResourceController {
             comment.setBlogId(blogId);
             comment.setPublicTime(date);
             comment.setContent(content);
+            comment.setIpAddr(IpUtils.getIpAddr(request));
 
             commentRepository.saveAndFlush(comment);
+            return comment;
         }
+        return null;
+    }
+
+    @Transactional
+    @RequestMapping(value="/comment", method=RequestMethod.DELETE)
+    public void delComment(@RequestParam(value="id") Long commentId){
+       commentRepository.deleteCommentById(commentId);
     }
 
     @Transactional
     @RequestMapping(value="/visitNum", method=RequestMethod.GET)
-    public Blog updateVisitNum(@RequestParam(value="blogId") Long blogId){
+    public String updateVisitNum(@RequestParam(value="blogId") Long blogId){
         blogRepository.increaseVisitNum(blogId);
-        return blogRepository.findOne(blogId);
+        return Long.toString(blogRepository.findOne(blogId).getVisitNum());
+    }
+
+    @Transactional
+    @RequestMapping(value="/addLikeNum", method=RequestMethod.GET)
+    public String addLikeNum(@RequestParam(value="id") Long tupinId){
+        tupinRepository.increaseLikeNum(tupinId);
+        return Long.toString(tupinRepository.findOne(tupinId).getLikeNum());
+    }
+
+    @Transactional
+    @RequestMapping(value="/subLikeNum", method=RequestMethod.GET)
+    public String subLikeNum(@RequestParam(value="id") Long tupinId){
+        tupinRepository.decreaseLikeNum(tupinId);
+        return Long.toString(tupinRepository.findOne(tupinId).getLikeNum());
     }
 }

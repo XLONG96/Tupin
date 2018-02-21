@@ -14,6 +14,9 @@ public class Comment implements Serializable{
 
     private String name;
 
+    @Column(name="ip_addr")
+    private String ipAddr;
+
     @Column(name="blog_id")
     private long blogId;
 
@@ -36,6 +39,14 @@ public class Comment implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIpAddr() {
+        return ipAddr;
+    }
+
+    public void setIpAddr(String ipAddr) {
+        this.ipAddr = ipAddr;
     }
 
     public long getBlogId() {

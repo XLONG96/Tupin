@@ -4,6 +4,7 @@ import com.xlong.tupin.Entity.Admin;
 import com.xlong.tupin.TupinRepository.AdminRepository;
 import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
 import com.xlong.tupin.TupinRepository.TupinRepository;
+import com.xlong.tupin.Utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -70,6 +71,7 @@ public class HomeController {
         }
         else{
             //MD5
+            password = MD5Utils.getMD5(password);
             if(!password.equals(admin.getPassword())){
                 error = true;
                 model.addAttribute("error",error);

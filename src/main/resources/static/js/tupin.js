@@ -23,8 +23,14 @@ $(function(){
         $('body,html').animate({scrollTop:0},300);
     });
 
+
+    //click to like
+    $("body").on('click','#like',function(){
+        alert("sd");
+    });
+
     var page = 0;
-    var url = "api/imgs";
+    var url = "api/tupin";
     var fboard = document.querySelector('#fh5co-board');
     var loadend = $("#load-end");
 

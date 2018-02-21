@@ -17,9 +17,9 @@ public interface BlogRepository extends PagingAndSortingRepository<Blog,Long>{
 
     Blog findOne(Long id);
 
-    void deleteById(Long id);
+    void deleteBlogById(Long id);
 
     @Modifying
     @Query("update Blog b set b.visitNum=b.visitNum+1 where b.id= ?1")
-    int increaseVisitNum(Long id);
+    void increaseVisitNum(Long id);
 }

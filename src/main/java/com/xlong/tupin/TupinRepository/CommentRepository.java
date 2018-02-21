@@ -13,5 +13,5 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Comment saveAndFlush(Comment comment);
 
-    void deleteById(Long id);
+    void deleteCommentById(Long id);
 }

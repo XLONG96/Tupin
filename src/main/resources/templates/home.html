@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org">
+>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -34,6 +34,8 @@
 	<link rel="stylesheet" href="css/salvattore.css"/>
 	<!-- Theme Style -->
 	<link rel="stylesheet" href="css/style.css"/>
+	<!-- Audio Style -->
+	<link rel="stylesheet" href="css/audio.css"/>
 	<!-- Own Style -->
 	<link rel="stylesheet" href="css/tupin.css"/>
 
@@ -98,6 +100,50 @@
 		<p id="load-end">已经没有更多数据了~</p>
 	</div>
 
+	<div class="audio-box">
+		<div class="audio-container">
+			<div class="audio-cover"></div>
+			<div class="audio-view">
+				<h3 class="audio-title">未知歌曲</h3>
+				<div class="audio-body">
+					<div class="audio-backs">
+						<div class="audio-this-time">00:00</div>
+						<div class="audio-count-time">00:00</div>
+						<div class="audio-setbacks">
+							<i class="audio-this-setbacks">
+								<span class="audio-backs-btn"></span>
+							</i>
+							<span class="audio-cache-setbacks">
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="audio-btn">
+					<div class="audio-select">
+						<div class="audio-prev"></div>
+						<div class="audio-play"></div>
+						<div class="audio-next"></div>
+						<div class="audio-menu"></div>
+						<div class="audio-volume"></div>
+					</div>
+					<div class="audio-set-volume">
+						<div class="volume-box">
+							<i><span></span></i>
+						</div>
+					</div>
+					<div class="audio-list">
+						<div class="audio-list-head">
+							<p>☺随心听</p>
+							<span class="menu-close">关闭</span>
+						</div>
+						<ul class="audio-inline">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<footer id="fh5co-footer">
 		<div class="container">
 			<div class="row row-padded">
@@ -109,7 +155,7 @@
 						<a href="#"><i class="icon-dribbble"></i></a>
 						<a href="#"><i class="icon-youtube"></i></a>
 					</p>
-					<p><small>&copy; Hydrogen Free HTML5 Template | All Rights Reserved. </small></p>
+					<p><small>&copy; 2018 Develop By XLONG<br/>Hydrogen Free HTML5 Template | All Rights Reserved. </small></p>
 				</div>
 			</div>
 		</div>
@@ -129,10 +175,14 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
-	<!-- Own JS -->
-	<script src="js/tupin.js"></script>
 	<!-- ScrollTop JS -->
 	<script src="js/scrollTop.js"></script>
+	<!-- Audio JS -->
+	<script src="js/audio.js"></script>
+	<!-- Own JS -->
+	<script src="js/tupin.js"></script>
+	<script src="js/custom-audio.js"></script>
+
 
 	</body>
 </html>

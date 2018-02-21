@@ -12,8 +12,12 @@ public class Tupin implements Serializable{
     private long id;
     private String img;
     private String title;
+
     @Column(name="public_time")
     private Date publicTime;
+
+    @Column(name="like_num")
+    private long likeNum;
 
     public long getId() {
         return id;
@@ -39,6 +43,14 @@ public class Tupin implements Serializable{
         this.title = title;
     }
 
+    public long getLikeNum() {
+        return likeNum;
+    }
+
+    public void setLikeNum(long likeNum) {
+        this.likeNum = likeNum;
+    }
+
     public Date getPublicTime() {
         return publicTime;
     }
@@ -46,4 +58,6 @@ public class Tupin implements Serializable{
     public void setPublicTime(Date publicTime) {
         this.publicTime = publicTime;
     }
+
+
 }

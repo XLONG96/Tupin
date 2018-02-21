@@ -1479,6 +1479,7 @@ hr {
   border-top: 1px solid #eeeeee;
 }
 
+/**/
 .sr-only {
   position: absolute;
   width: 1px;
@@ -1532,8 +1533,10 @@ h6 .small,
 h1, .h1,
 h2, .h2,
 h3, .h3 {
+  /*influence audio
   margin-top: 20px;
   margin-bottom: 10px;
+  */
 }
 h1 small,
 h1 .small, .h1 small,

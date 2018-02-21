@@ -55,6 +55,7 @@ public class UploadController {
             Tupin tupin = new Tupin();
             Date date = new Date();
 
+            tupin.setLikeNum(0);
             tupin.setTitle(title);
             tupin.setImg("images/"+filename);
             tupin.setPublicTime(date);
@@ -87,6 +88,7 @@ public class UploadController {
                 title = "default";
             }
 
+            tupinAlbum.setLikeNum(0);
             tupinAlbum.setTitle(title);
             tupinAlbum.setImg("images/headImg/"+filename);
             tupinAlbum.setPublicTime(date);

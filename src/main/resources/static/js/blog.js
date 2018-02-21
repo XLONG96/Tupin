@@ -11,6 +11,28 @@ $(function(){
         }
     }
 
+    $("body").on('click','#del',function(){
+        var isdel = confirm("确定要删除该评论？");
+        if(isdel == true){
+            var url = this.href;
+            $.ajax({
+                url:url,
+                type:"DELETE",
+                error:function(xhr,info){
+                    alert(xhr.status+" "+xhr.statusText+" "+info);
+                }
+            });
+            location.reload();
+        }
+        return false;
+    });
+
+    var isLogin;
+    //is login?
+    $.get("api/isLogin",function(data){
+        isLogin = data;
+    });
+
     /* 获取md */
     var id = getQueryString("id");
     var url = "api/blog";
@@ -108,6 +130,8 @@ $(function(){
     /* 获取评论 */
     var url2 = "api/comment";
     var arow = document.getElementById("row");
+    var commentNum = $("#commentNum");
+    var cnum = 0;
 
     function getComment(){
         $.ajax({
@@ -130,6 +154,8 @@ $(function(){
 
             $.each(data, function (index, val) {
 
+                cnum = index;
+
                 var abox = document.createElement("div");
                 abox.setAttribute("class","col-md-8 col-md-offset-2");
 
@@ -150,8 +176,24 @@ $(function(){
 
                 abox.appendChild(ap1);
                 abox.appendChild(ap2);
+
+                if(isLogin == true){
+                    var adel = document.createElement("a");
+                    adel.setAttribute("id","del");
+                    adel.setAttribute("class","col-md-offset-11");
+                    adel.setAttribute("href","api/comment?id="+val.id);
+                    adel.innerHTML = "删除";
+                    abox.appendChild(adel);
+                }
+
+                abox.appendChild(document.createElement("hr"));
                 arow.appendChild(abox);
             });
+
+            if(cnum != 0){
+                cnum += 1;
+            }
+            commentNum.text(cnum);
         }
     }
 
@@ -203,7 +245,7 @@ $(function(){
         });
 
         function callback(data){
-            aspan.innerHTML = data.visitNum;
+            aspan.innerHTML = data;
         }
     }
 });
