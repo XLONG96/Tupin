@@ -111,7 +111,7 @@
 			var song = config.song;
 			if(!song){
 
-					alert('错误1!!!');
+					alert('曲库没有一首歌哦！');
 				return false;
 			}
 

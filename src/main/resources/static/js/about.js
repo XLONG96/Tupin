@@ -51,7 +51,7 @@ $(function(){
 
             $.each(data, function (index, val) {
 
-                cnum = index;
+                cnum ++;
 
                 var abox = document.createElement("div");
                 abox.setAttribute("class","col-md-8 col-md-offset-2");
@@ -87,9 +87,6 @@ $(function(){
                 arow.appendChild(abox);
             });
 
-            if(cnum != 0){
-                cnum += 1;
-            }
             commentNum.text(cnum);
         }
     }

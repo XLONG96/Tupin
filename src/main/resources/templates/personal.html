@@ -62,6 +62,7 @@
 			<li><a href="personal-album"> 上传相册 </a></li>
 			<li><a href="personal-blog"> 上传随笔 </a></li>
 			<li><a href="personal-cover"> 上传封面 </a></li>
+			<li><a href="personal-music"> 上传音乐 </a></li>
 			<li><a href="home"> 拾 零 </a></li>
 			<li><a href="album"> 宫 格 </a></li>
 			<li><a href="summary"> 随 笔 </a></li>
@@ -88,7 +89,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<form action="pic-upload" method="POST" enctype="multipart/form-data">
+					<form action="tupin-upload" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
 							<h3> SUMMARY </h3>
 							<textarea type="text" name="title" class="form-control" rows="4" maxlength="400"></textarea>
@@ -96,7 +97,7 @@
 
 						<div class="form-group">
 							<h3> 选择你要上传的照片 </h3>
-							<input type="file" accept="image/png,image/jpeg" name="pic"/>
+							<input type="file" accept="image/png,image/jpeg,image/gif" name="pic"/>
 						</div>
 
 						<div class="form-group">

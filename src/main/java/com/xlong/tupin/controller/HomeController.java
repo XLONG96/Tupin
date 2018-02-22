@@ -3,7 +3,6 @@ package com.xlong.tupin.controller;
 import com.xlong.tupin.Entity.Admin;
 import com.xlong.tupin.TupinRepository.AdminRepository;
 import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
-import com.xlong.tupin.TupinRepository.TupinRepository;
 import com.xlong.tupin.Utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -61,25 +60,47 @@ public class HomeController {
     @RequestMapping(value="/login",method=RequestMethod.POST)
     public String loginAndVerify(@RequestParam("username") String name, @RequestParam("password") String password,
                                 Model model, HttpServletRequest request){
-        boolean error = false;
+        int state = 1000;
         Admin admin = adminRepository.findAdminByName(name);
 
+        //用户输入密码错误次数超过3次则锁定
+        //1.查询该用户所在session保存的错误次数，如果超过3次，则返回错误
+        //2.每次出现错误则errorNum加1
+        Integer errorNum = (Integer)request.getSession().getAttribute("errorNum");
+
+        if(errorNum != null){
+            if(errorNum >= 3){
+                //返回错误
+                state = 1003;
+                model.addAttribute("state",state);
+                return "login";
+            }
+        }else{
+            errorNum = 0;
+        }
+
+
         if(admin == null){
-            error = true;
-            model.addAttribute("error",error);
+            state = 1001;
+            model.addAttribute("state",state);
+            errorNum++;
+            request.getSession().setAttribute("errorNum", errorNum);
             return "login";
         }
         else{
             //MD5
             password = MD5Utils.getMD5(password);
+
             if(!password.equals(admin.getPassword())){
-                error = true;
-                model.addAttribute("error",error);
+                state = 1002;
+                model.addAttribute("state",state);
+                errorNum++;
+                request.getSession().setAttribute("errorNum", errorNum);
                 return "login";
             }
         }
 
-        model.addAttribute("error",error);
+        model.addAttribute("state",state);
         request.getSession().setAttribute("admin",admin);
         return "personal";
     }
@@ -122,6 +143,16 @@ public class HomeController {
     public String personalCover(HttpServletRequest request){
         if(isLogin(request)){
             return "personal-cover";
+        }
+        else{
+            return "login";
+        }
+    }
+
+    @RequestMapping(value="/personal-music",method=RequestMethod.GET)
+    public String personalMusic(HttpServletRequest request){
+        if(isLogin(request)){
+            return "personal-music";
         }
         else{
             return "login";

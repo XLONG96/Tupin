@@ -1,9 +1,11 @@
 package com.xlong.tupin.controller;
 
 import com.xlong.tupin.Entity.Blog;
+import com.xlong.tupin.Entity.Music;
 import com.xlong.tupin.Entity.Tupin;
 import com.xlong.tupin.Entity.TupinAlbum;
 import com.xlong.tupin.TupinRepository.BlogRepository;
+import com.xlong.tupin.TupinRepository.MusicRepository;
 import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
 import com.xlong.tupin.TupinRepository.TupinRepository;
 import org.slf4j.Logger;
@@ -35,7 +37,10 @@ public class UploadController {
     @Autowired
     BlogRepository blogRepository;
 
-    @RequestMapping(value="/pic-upload",method=RequestMethod.POST)
+    @Autowired
+    MusicRepository musicRepository;
+
+    @RequestMapping(value="/tupin-upload",method=RequestMethod.POST)
     public String picUpload(@RequestParam("title") String title, @RequestPart("pic") MultipartFile pic, HttpServletRequest request) throws IOException {
         logger.info("XXX in picload");
 
@@ -159,5 +164,39 @@ public class UploadController {
         }
 
         return "summary";
+    }
+
+    @RequestMapping(value="/music-upload", method=RequestMethod.POST)
+    public String musicUpload(@RequestParam("cover") MultipartFile cover, @RequestPart("src") MultipartFile src,
+                              HttpServletRequest request) throws IOException {
+        String filedir = request.getSession().getServletContext().getRealPath("/")+
+                "music/";
+
+        String filename = UUID.randomUUID().toString()+".jpg";
+
+        if(!cover.isEmpty() && !src.isEmpty()){
+            File dir = new File(filedir+"cover/");
+
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File coverFile = new File(filedir + "cover/" + filename);
+            cover.transferTo(coverFile);
+
+            String srcFileName = src.getOriginalFilename();
+            File srcFile = new File(filedir + srcFileName);
+            src.transferTo(srcFile);
+
+            Music music = new Music();
+
+            music.setCover("music/cover/" + filename);
+            music.setSrc("music/" + srcFileName);
+            music.setTitle(srcFileName);
+
+            musicRepository.saveAndFlush(music);
+        }
+
+        return "personal-music";
     }
 }

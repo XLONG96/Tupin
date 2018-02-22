@@ -100,7 +100,9 @@
 						</div>
 
 						<div>
-							<label style="color: red; text-align: center" th:if="${error} == true">用户名/密码 错误</label>
+							<label style="color: red; text-align: center" th:if="${state} == 1001">用户名/密码 错误</label>
+							<label style="color: red; text-align: center" th:if="${state} == 1002">用户名/密码 错误</label>
+							<label style="color: red; text-align: center" th:if="${state} == 1003">请稍后重试...</label>
 						</div>
 					</form>
 				</div>

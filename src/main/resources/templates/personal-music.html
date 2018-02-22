@@ -60,9 +60,9 @@
 		<ul>
 			<li><a href="personal"> 朝花夕拾 </a></li>
 			<li><a href="personal-album"> 上传相册 </a></li>
-			<li class="active"><a href="personal-blog"> 上传随笔 </a></li>
+			<li><a href="personal-blog"> 上传随笔 </a></li>
 			<li><a href="personal-cover"> 上传封面 </a></li>
-			<li><a href="personal-music"> 上传音乐 </a></li>
+			<li class="active"><a href="personal-music"> 上传音乐 </a></li>
 			<li><a href="home"> 拾 零 </a></li>
 			<li><a href="album"> 宫 格 </a></li>
 			<li><a href="summary"> 随 笔 </a></li>
@@ -76,7 +76,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-					<a class="navbar-brand" href="personal-blog">上传随笔</a>
+					<a class="navbar-brand" href="personal-blog">上传音乐</a>
 				</div>
 			</div>
 		</div>
@@ -89,25 +89,21 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
-					<form action="blog-upload" method="POST" enctype="multipart/form-data">
+					<form action="music-upload" method="POST" enctype="multipart/form-data">
 						<div class="form-group">
-							<h3> TITLE </h3>
-							<input type="text" name="title" class="form-control"/>
+							<h3> 选择你要上传的封面 </h3>
+							<input type="file" accept="image/png,image/jpeg" name="cover"/>
 						</div>
 
 						<div class="form-group">
-							<h3> THEME </h3>
-							<input type="text" name="theme" class="form-control"/>
+							<div class="pic-preview">
+								<img src="images/pic1.jpg" id="upimg"/>
+							</div>
 						</div>
 
 						<div class="form-group">
-							<h3> SUMMARY </h3>
-							<textarea type="text" name="summary" class="form-control" rows="4"></textarea>
-						</div>
-
-						<div class="form-group">
-							<h3> 选择你要上传的MarkDown文件 </h3>
-							<input type="file" name="fblog"/>
+							<h3> 选择你要上传的音乐(文件大小不超过12M) </h3>
+							<input type="file" accept="audio/mpeg" name="src"/>
 						</div>
 
 						<div>
@@ -154,27 +150,32 @@
 		$(function(){
 
             $('input[type=submit]').click(function(){
-                if($('input[name=title]').val() == "" || $('input[name=title]').val() == null){
-                    alert("请输入文章标题！");
-                    return false;
-				}
-
-                if($('input[name=theme]').val() == "" || $('input[name=theme]').val() == null){
-                    alert("请输入文章主题！");
+                if($('input[name=cover]').val() == "" || $('input[name=cover]').val() == null){
+                    alert("请选择要上传的封面！");
                     return false;
                 }
 
-                if($('textarea[name=summary]').val() == "" || $('textarea[name=summary]').val() == null){
-                    alert("请输入文章概要！");
+                if($('input[name=src]').val() == "" || $('input[name=src]').val() == null){
+                    alert("请选择要上传的音乐文件！");
                     return false;
                 }
-
-                if($('input[type=file]').val() == "" || $('input[type=file]').val() == null){
-                    alert("请先选择要上传的Markdown文件!");
-                    return false;
-                }
-
             });
+
+            $('input[name=cover]').change(function(e) {
+                var file = e.target.files[0];
+                preview(file);
+            });
+
+            function preview(file) {
+                //！！！一定要用原始的方式获取元素，否则无法显示！
+                var img = document.getElementById("upimg");
+                //改变img的src属性
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
 
 		})
 	</script>

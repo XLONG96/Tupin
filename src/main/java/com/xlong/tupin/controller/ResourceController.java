@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xlong.tupin.Entity.Blog;
 import com.xlong.tupin.Entity.Comment;
-import com.xlong.tupin.TupinRepository.BlogRepository;
-import com.xlong.tupin.TupinRepository.CommentRepository;
-import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
-import com.xlong.tupin.TupinRepository.TupinRepository;
+import com.xlong.tupin.Entity.Music;
+import com.xlong.tupin.TupinRepository.*;
 import com.xlong.tupin.Utils.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +38,9 @@ public class ResourceController {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private MusicRepository musicRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -155,6 +156,12 @@ public class ResourceController {
     @RequestMapping(value="/comment", method=RequestMethod.DELETE)
     public void delComment(@RequestParam(value="id") Long commentId){
        commentRepository.deleteCommentById(commentId);
+    }
+
+    @RequestMapping(value="/music", method=RequestMethod.GET)
+    public List<Music> getMusic(){
+        List<Music> list = musicRepository.findAll();
+        return list;
     }
 
     @Transactional

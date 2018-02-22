@@ -1,18 +1,29 @@
 $(function(){
-    var song = [
 
+    var url = "api/music";
+    /*var song = [
         {
-            'cover' : 'music/cover1.jpg',
-            'src' : 'music/劲舞团 - Heyoh.mp3',
-            'title' : '劲舞团 - Heyoh'
+            'title' : '劲舞团 - Heyoh - 英文舞曲 英文 Bigd 版.mp3',
+            'cover' : 'music/90e8be68-7d8b-4ff2-b0ee-583e06ff987c.jpg',
+            'src' : 'music/劲舞团 - Heyoh - 英文舞曲 英文 Bigd 版.mp3'
         }
+    ];*/
 
-    ];
-
-    var audioFn = audioPlay({
-        song : song,
-        autoPlay : false  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+    $.ajax({
+        url:url,
+        type:"GET",
+        success:function(data){
+            var audioFn = audioPlay({
+                song : data,
+                autoPlay : false  //是否立即播放第一首，autoPlay为true且song为空，会alert文本提示并退出
+            });
+        },
+        error: function (xhr, info) {
+            alert(xhr.status + " " + xhr.statusText + " " + info);
+        }
     });
+
+
 
     /* 向歌单中添加新曲目，第二个参数true为新增后立即播放该曲目，false则不播放
     audioFn.newSong({
