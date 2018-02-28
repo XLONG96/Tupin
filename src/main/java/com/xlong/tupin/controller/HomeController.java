@@ -47,6 +47,11 @@ public class HomeController {
         return "summary";
     }
 
+    @RequestMapping(value="/tag-summary",method=RequestMethod.GET)
+    public String TagSummary(){
+        return "tag-summary";
+    }
+
     @RequestMapping(value="/blog",method=RequestMethod.GET)
     public String blog(){
         return "blog";

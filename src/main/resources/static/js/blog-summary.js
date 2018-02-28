@@ -1,5 +1,16 @@
 $(function(){
 
+    //获取theme参数
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); // 匹配目标参数
+        var result = window.location.search.substr(1).match(reg); // 对querystring匹配目标参数
+        if (result != null) {
+            return decodeURIComponent(result[2]);
+        } else {
+            return null;
+        }
+    }
+
     $("body").on('click','#del',function(){
         var isdel = confirm("确定要删除该文章？");
         if(isdel == true){
@@ -16,6 +27,7 @@ $(function(){
         return false;
     });
 
+    var theme = getQueryString("theme");
     var page = 0;
     var url = "api/summary";
     var row = document.getElementById("row");
@@ -39,7 +51,10 @@ $(function(){
         $.ajax({
             url:url,
             type:"GET",
-            data:{"page":page},
+            data:{
+                "page":page,
+                "theme":theme
+            },
             success:callback,
             error:function(xhr,info){
                 alert(xhr.status+" "+xhr.statusText+" "+info);

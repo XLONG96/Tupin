@@ -1,5 +1,21 @@
 $(function(){
 
+    $("body").on('click','#del',function(){
+        var isdel = confirm("确定要删除该图文？");
+        if(isdel == true){
+            var url = this.href;
+            $.ajax({
+                url:url,
+                type:"DELETE",
+                error:function(xhr,info){
+                    alert(xhr.status+" "+xhr.statusText+" "+info);
+                }
+            });
+            location.reload();
+        }
+        return false;
+    });
+
     //返回顶部
     $(window).scroll(function(){
         var sc=$(window).scrollTop();
@@ -33,6 +49,12 @@ $(function(){
     var url = "api/tupin";
     var fboard = document.querySelector('#fh5co-board');
     var loadend = $("#load-end");
+    var isLogin;
+
+    //is login?
+    $.get("api/isLogin",function(data){
+        isLogin = data;
+    });
 
     // first do
     loadend.hide();
@@ -93,6 +115,18 @@ $(function(){
                newNode.setAttribute("class","item");
                newNode.appendChild(abox);
                newNode.appendChild(dtitle);
+
+               if(isLogin == true){
+                   var adel = document.createElement("a");
+                   adel.setAttribute("id","del");
+                   adel.setAttribute("class","col-md-offset-10");
+                   adel.setAttribute("href","api/tupin?id="+val.id);
+                   adel.innerHTML = "删除";
+
+                   var asmall = document.createElement("small");
+                   asmall.appendChild(adel);
+                   newNode.appendChild(asmall);
+               }
 
                //动态增加瀑布流元素
                salvattore.appendElements(fboard,[newNode]);

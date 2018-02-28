@@ -7,6 +7,7 @@ import com.xlong.tupin.Entity.Comment;
 import com.xlong.tupin.Entity.Music;
 import com.xlong.tupin.TupinRepository.*;
 import com.xlong.tupin.Utils.IpUtils;
+import com.xlong.tupin.Utils.OtherUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -78,10 +81,11 @@ public class ResourceController {
 
     @RequestMapping(value="/summary", method=RequestMethod.GET)
     public Page getSummary(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                           @RequestParam("theme") String theme,
                            @RequestParam(value = "size", defaultValue = "8") Integer size){
         Sort sort = new Sort(Sort.Direction.DESC, "publicTime");
         Pageable pageable = new PageRequest(page, size, sort);
-        return blogRepository.findAll(pageable);
+        return blogRepository.findAllByTheme(pageable, theme);
     }
 
     @RequestMapping(value="/blog", method=RequestMethod.GET)
@@ -93,22 +97,16 @@ public class ResourceController {
             return null;
         }
 
-        String mdPath = blog.getMdContent();
-        File file = new File(mdPath);
-        FileInputStream fileInputStream;
-        Long len = file.length();
-        byte[] byteContent = new byte[len.intValue()];
+        URL url =  new URL(blog.getMdContent());
 
-        try {
-            fileInputStream  = new FileInputStream(file);
-            fileInputStream.read(byteContent);
-            fileInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setConnectTimeout(3 * 1000);
 
-        blog.setMdContent(new String(byteContent));
+        InputStream inputStream = httpURLConnection.getInputStream();
+
+        String content = OtherUtils.convertStreamToString(inputStream);
+
+        blog.setMdContent(content);
 
         //设置上一篇和下一篇blog
         Blog lastBlog = blogRepository.findOne(id-1);
@@ -128,9 +126,13 @@ public class ResourceController {
     }
 
     @RequestMapping(value="/comment", method=RequestMethod.GET)
-    public List<Comment> getComment(@RequestParam(value="blogId") Long blogId){
-        List<Comment> list =  commentRepository.findAllByBlogId(blogId);
-        return list;
+    public Page<Comment> getComment(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                    @RequestParam(value="blogId") Long blogId,
+                                    @RequestParam(value = "size", defaultValue = "10" ) Integer size){
+        Sort sort = new Sort(Sort.Direction.ASC,"publicTime");
+        Pageable pageable = new PageRequest(page,size,sort);
+
+        return commentRepository.findAllByBlogId(pageable, blogId);
     }
 
     @RequestMapping(value="/comment", method=RequestMethod.POST)

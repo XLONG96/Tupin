@@ -8,6 +8,7 @@ import com.xlong.tupin.TupinRepository.BlogRepository;
 import com.xlong.tupin.TupinRepository.MusicRepository;
 import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
 import com.xlong.tupin.TupinRepository.TupinRepository;
+import com.xlong.tupin.Utils.OSSCilentUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +26,8 @@ import java.util.Date;
 import java.util.UUID;
 
 @Controller
-public class UploadController {
-/*
-
-    private static Logger logger = LoggerFactory.getLogger(UploadController.class);
+public class OSSUploadController {
+    private static Logger logger = LoggerFactory.getLogger(OSSUploadController.class);
 
     @Autowired
     TupinRepository tupinRepository;
@@ -42,29 +41,25 @@ public class UploadController {
     @Autowired
     MusicRepository musicRepository;
 
+
     @RequestMapping(value="/tupin-upload",method=RequestMethod.POST)
     public String picUpload(@RequestParam("title") String title, @RequestPart("pic") MultipartFile pic, HttpServletRequest request) throws IOException {
-        logger.info("XXX in picload");
+        logger.info("XXX in tupin-upload");
 
-        String filedir = request.getSession().getServletContext().getRealPath("/")+
-                "images";
+        String filedir = "images/";
         String filename = UUID.randomUUID().toString()+".jpg";
 
         if(!pic.isEmpty()){
-            File dir = new File(filedir);
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
 
-            File targetFile = new File(filedir+"/"+filename);
-            pic.transferTo(targetFile);
+            OSSCilentUtils.createFolder(filedir);
+            String url = OSSCilentUtils.OSSUpload(pic.getInputStream(), filedir + filename);
 
             Tupin tupin = new Tupin();
             Date date = new Date();
 
             tupin.setLikeNum(0);
             tupin.setTitle(title);
-            tupin.setImg("images/"+filename);
+            tupin.setImg(url);
             tupin.setPublicTime(date);
 
             tupinRepository.saveAndFlush(tupin);
@@ -75,29 +70,20 @@ public class UploadController {
 
     @RequestMapping(value="/album-upload", method=RequestMethod.POST)
     public String albumUpload(@RequestParam("title") String title, @RequestPart("album") MultipartFile album, HttpServletRequest request) throws IOException {
-        String filedir = request.getSession().getServletContext().getRealPath("/")+
-                "images/headImg";
+        String filedir = "albums/";
         String filename = UUID.randomUUID().toString()+".jpg";
 
         if(!album.isEmpty()){
-            File dir = new File(filedir);
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
 
-            File targetFile = new File(filedir+"/"+filename);
-            album.transferTo(targetFile);
+            OSSCilentUtils.createFolder(filedir);
+            String url = OSSCilentUtils.OSSUpload(album.getInputStream(), filedir + filename);
 
             TupinAlbum tupinAlbum = new TupinAlbum();
             Date date = new Date();
 
-            if(title.equals("") || title == null){
-                title = "default";
-            }
-
             tupinAlbum.setLikeNum(0);
             tupinAlbum.setTitle(title);
-            tupinAlbum.setImg("images/headImg/"+filename);
+            tupinAlbum.setImg(url);
             tupinAlbum.setPublicTime(date);
 
             tupinAlbumRepository.saveAndFlush(tupinAlbum);
@@ -109,30 +95,22 @@ public class UploadController {
 
     @RequestMapping(value="/blog-upload", method=RequestMethod.POST)
     public String blogUpload(@RequestParam("title") String title,
-            @RequestParam("theme") String theme,@RequestParam("summary") String summary,
-                             @RequestPart("fblog") MultipartFile fblog, HttpServletRequest request) throws IOException {
-        String filedir = request.getSession().getServletContext().getRealPath("/")+
-                "blogs/";
+                             @RequestParam("theme") String theme, @RequestParam("summary") String summary,
+                             @RequestPart("fblog") MultipartFile fblog,
+                             HttpServletRequest request) throws IOException {
+
+        String filedir = "blogs/";
 
         if(!fblog.isEmpty()){
             String filename = fblog.getOriginalFilename();
-            File dir = new File(filedir);
 
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            File targetFile = new File(filedir + filename);
-            fblog.transferTo(targetFile);
+            OSSCilentUtils.createFolder(filedir);
+            String url = OSSCilentUtils.OSSUpload(fblog.getInputStream(), filedir + filename);
 
             Blog blog = new Blog();
             Date date = new Date();
 
-            if(title == null){
-                title = "";
-            }
-
-            if(theme.equals("") || theme == null){
+            if(theme.equals("")){
                 theme = "Other";
             }
 
@@ -141,7 +119,7 @@ public class UploadController {
             blog.setVisitNum(0);
             blog.setPublicTime(date);
             blog.setSummary(summary + "...");
-            blog.setMdContent(filedir + filename);
+            blog.setMdContent(url);
 
             blogRepository.saveAndFlush(blog);
         }
@@ -151,49 +129,40 @@ public class UploadController {
 
     @RequestMapping(value="/cover-upload", method=RequestMethod.POST)
     public String coverUpload(@RequestPart("cover") MultipartFile cover, HttpServletRequest request) throws IOException {
-        String filedir = request.getSession().getServletContext().getRealPath("/")+
-                "images";
+        String filedir = "images/";
+        String filename = "cover_img.jpg";
 
         if(!cover.isEmpty()){
-            File dir = new File(filedir);
 
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            File targetFile = new File(filedir + "/cover_img.jpg");
-            cover.transferTo(targetFile);
+            OSSCilentUtils.createFolder(filedir);
+            String url = OSSCilentUtils.OSSUpload(cover.getInputStream(), filedir + filename);
         }
 
-        return "summary";
+        return "personal-cover";
     }
 
     @RequestMapping(value="/music-upload", method=RequestMethod.POST)
     public String musicUpload(@RequestParam("cover") MultipartFile cover, @RequestPart("src") MultipartFile src,
                               HttpServletRequest request) throws IOException {
-        String filedir = request.getSession().getServletContext().getRealPath("/")+
-                "music/";
-
+        String coverdir = "music/cover/";
+        String srcdir = "music/";
         String filename = UUID.randomUUID().toString()+".jpg";
 
         if(!cover.isEmpty() && !src.isEmpty()){
-            File dir = new File(filedir+"cover/");
-
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
-
-            File coverFile = new File(filedir + "cover/" + filename);
-            cover.transferTo(coverFile);
 
             String srcFileName = src.getOriginalFilename();
-            File srcFile = new File(filedir + srcFileName);
-            src.transferTo(srcFile);
+
+            OSSCilentUtils.createFolder(coverdir);
+            String coverUrl = OSSCilentUtils.OSSUpload(cover.getInputStream(), coverdir + filename);
+
+            OSSCilentUtils.createFolder(srcdir);
+            String srcUrl = OSSCilentUtils.OSSUpload(src.getInputStream(), srcdir + srcFileName);
+
 
             Music music = new Music();
 
-            music.setCover("music/cover/" + filename);
-            music.setSrc("music/" + srcFileName);
+            music.setCover(coverUrl);
+            music.setSrc(srcUrl);
             music.setTitle(srcFileName);
 
             musicRepository.saveAndFlush(music);
@@ -201,6 +170,4 @@ public class UploadController {
 
         return "personal-music";
     }
-*/
-
 }

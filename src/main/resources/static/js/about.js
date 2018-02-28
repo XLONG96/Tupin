@@ -26,16 +26,23 @@ $(function(){
     var url = "api/comment";
     var arow = document.getElementById("row");
     var commentNum = $("#commentNum");
-    var cnum = 0;
+    var page = 0;
+    var loadend = $("#load-end");
 
+    loadend.hide();
     getComment();
+
+    $("#load").click(function(){
+        getComment();
+    });
 
     function getComment(){
         $.ajax({
             url:url,
             type:"GET",
             data:{
-                blogId:0
+                "page":page,
+                "blogId":0
             },
             success: callback,
             error: function (xhr, info) {
@@ -49,9 +56,24 @@ $(function(){
                 return ;
             }
 
-            $.each(data, function (index, val) {
+            if(data.last == true){
+                loadend.show();
+                $("#load").hide();
+            }
 
-                cnum ++;
+            page++;
+
+            var content = data.content;
+
+            if(content == null || content ==""){
+                loadend.show();
+                $("#load").hide();
+                return false;
+            }
+
+            commentNum.text(data.totalElements);
+
+            $.each(content, function (index, val) {
 
                 var abox = document.createElement("div");
                 abox.setAttribute("class","col-md-8 col-md-offset-2");
@@ -86,8 +108,6 @@ $(function(){
                 abox.appendChild(document.createElement("hr"));
                 arow.appendChild(abox);
             });
-
-            commentNum.text(cnum);
         }
     }
 
