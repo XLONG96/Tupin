@@ -39,7 +39,7 @@ $(function(){
     var blogId;
     var abox = document.getElementById("box");
     var atitle = document.getElementById("tab-title");
-
+    var aspan;
     var rendererMD = new marked.Renderer();
     marked.setOptions({
         renderer: rendererMD,
@@ -85,7 +85,7 @@ $(function(){
             ap1.setAttribute("class","text-center");
             ap1.innerHTML = "Post on "+date.toDateString()+" | In "+val.theme+" | Visitors ";
 
-            var aspan = document.createElement("span");
+            aspan = document.createElement("span");
             aspan.setAttribute("id","visitor");
             aspan.innerHTML = val.visitNum;
 
@@ -248,7 +248,7 @@ $(function(){
     });
 
     /* 更新访问量 */
-    var url4 = "api/visitNum"
+    var url4 = "api/visitNum";
 
     function updateVisitor(){
         $.ajax({
