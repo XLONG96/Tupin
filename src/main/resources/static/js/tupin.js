@@ -1,5 +1,19 @@
 $(function(){
 
+    var on = true;
+
+    $("#music").click(function(){
+        if(on == true){
+            $(".audio-box").hide();
+            on = false;
+        }
+        else{
+            $(".audio-box").show();
+            on = true;
+        }
+
+    });
+
     $("body").on('click','#del',function(){
         var isdel = confirm("确定要删除该图文？");
         if(isdel == true){
@@ -109,6 +123,7 @@ $(function(){
 
                var dtitle = document.createElement("div");
                dtitle.setAttribute("class","fh5co-desc");
+               dtitle.setAttribute("style","color:black");
                dtitle.innerHTML = val.title;
 
                var newNode = document.createElement("div");

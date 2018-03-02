@@ -28,6 +28,7 @@ $(function(){
     });
 
     var theme = getQueryString("theme");
+    var atheme = document.getElementById("theme");
     var page = 0;
     var url = "api/summary";
     var row = document.getElementById("row");
@@ -63,6 +64,8 @@ $(function(){
 
         function callback(data){
 
+            atheme.innerHTML = theme + " ("+data.totalElements+")";
+
             if(data.last == true){
                 loadend.show();
                 $("#load").hide();
@@ -77,6 +80,8 @@ $(function(){
                 $("#load").hide();
                 return false;
             }
+
+
 
             $.each(content,function (index, val) {
 
