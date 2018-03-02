@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
@@ -100,6 +101,7 @@ public class ResourceController {
         URL url =  new URL(blog.getMdContent());
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
         httpURLConnection.setConnectTimeout(3 * 1000);
 
         InputStream inputStream = httpURLConnection.getInputStream();

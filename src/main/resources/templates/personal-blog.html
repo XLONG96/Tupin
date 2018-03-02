@@ -97,7 +97,7 @@
 
 						<div class="form-group">
 							<h3> THEME </h3>
-							<select name="carlist" class="form-control">
+							<select name="theme" class="form-control">
 								<option value ="HardWare">HardWare</option>
 								<option value ="JavaEE">JavaEE</option>
 								<option value="JavaSE">JavaSE</option>
@@ -164,11 +164,6 @@
                     alert("请输入文章标题！");
                     return false;
 				}
-
-                if($('input[name=theme]').val() == "" || $('input[name=theme]').val() == null){
-                    alert("请输入文章主题！");
-                    return false;
-                }
 
                 if($('textarea[name=summary]').val() == "" || $('textarea[name=summary]').val() == null){
                     alert("请输入文章概要！");
