@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xlong.tupin.Entity.Blog;
 import com.xlong.tupin.Entity.Comment;
 import com.xlong.tupin.Entity.Music;
+import com.xlong.tupin.Entity.Tupin;
 import com.xlong.tupin.TupinRepository.*;
 import com.xlong.tupin.Utils.IpUtils;
 import com.xlong.tupin.Utils.OtherUtils;
@@ -54,12 +55,19 @@ public class ResourceController {
         return request.getSession().getAttribute("admin") != null;
     }
 
-    @RequestMapping(value="/tupin", method= RequestMethod.GET)
+    @RequestMapping(value="/tupin", method=RequestMethod.GET)
     public Page getTupin(@RequestParam(value = "page", defaultValue = "0") Integer page,
                         @RequestParam(value = "size", defaultValue = "24" ) Integer size){
         Sort sort = new Sort(Sort.Direction.DESC,"publicTime");
         Pageable pageable = new PageRequest(page,size,sort);
-        return tupinRepository.findAll(pageable);
+        Page pageContent = tupinRepository.findAll(pageable);
+
+        for (Object o : pageContent.getContent()){
+            Tupin tupin = (Tupin)o;
+            tupin.setTitle(tupin.getTitle().replaceAll("\n", "<br/>"));
+        }
+
+        return pageContent;
     }
 
     @Transactional
@@ -91,10 +99,10 @@ public class ResourceController {
 
     @RequestMapping(value="/blog", method=RequestMethod.GET)
     public Blog getBlog(@RequestParam(value = "id") Long id) throws Exception {
-        //get blog's markdown content by path
+        // get blog's markdown content by path
         Blog blog = blogRepository.findOne(id);
 
-        if(blog == null){
+        if (blog == null){
             return null;
         }
 
@@ -110,16 +118,22 @@ public class ResourceController {
 
         blog.setMdContent(content);
 
-        //设置上一篇和下一篇blog
-        Blog lastBlog = blogRepository.findOne(id-1);
-        Blog nextBlog = blogRepository.findOne(id+1);
+        // 设置上一篇和下一篇blog
+        List<Blog> listBlog = blogRepository.findAllByTheme(blog.getTheme());
+        Blog lastBlog;
+        Blog nextBlog;
+        int currentBlogIndex = listBlog.indexOf(blog);
+        int lastBlogIndex = currentBlogIndex - 1;
+        int nextBlogIndex = currentBlogIndex + 1;
 
-        if(lastBlog != null){
+        if (lastBlogIndex >= 0){
+            lastBlog = listBlog.get(lastBlogIndex);
             blog.setLastId(lastBlog.getId());
             blog.setLastBlogTitle(lastBlog.getTitle());
         }
 
-        if(nextBlog != null){
+        if (nextBlogIndex < listBlog.size()){
+            nextBlog = listBlog.get(nextBlogIndex);
             blog.setNextId(nextBlog.getId());
             blog.setNextBlogTitle(nextBlog.getTitle());
         }
@@ -140,7 +154,7 @@ public class ResourceController {
     @RequestMapping(value="/comment", method=RequestMethod.POST)
     public Comment saveComment(@RequestParam(value="name") String name,@RequestParam(value="blogId") Long blogId,
                             @RequestParam(value="content") String content,HttpServletRequest request){
-        if(name != null && content != null){
+        if (name != null && content != null){
             Comment comment = new Comment();
             Date date = new Date();
 

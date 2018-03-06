@@ -126,6 +126,8 @@ $(function(){
                dtitle.setAttribute("style","color:black");
                dtitle.innerHTML = val.title;
 
+               console.log(val.title);
+
                var newNode = document.createElement("div");
                newNode.setAttribute("class","item");
                newNode.appendChild(abox);

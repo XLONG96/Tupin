@@ -119,7 +119,7 @@ $(function(){
             }
             nextBlog.attr("href","blog?id="+val.nextId);
             //nextBlog.setAttribute("href","blog?id="+val.nextBlogId);
-            nextBlog.prepend(val.nextBlogTitle);
+            nextBlog.append(val.nextBlogTitle);
 
 
             getComment();

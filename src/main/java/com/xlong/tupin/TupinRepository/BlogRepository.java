@@ -8,10 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BlogRepository extends PagingAndSortingRepository<Blog,Long>{
 
     Page<Blog> findAllByTheme(Pageable pageable, String theme);
+
+    List<Blog> findAllByTheme(String theme);
 
     Blog saveAndFlush(Blog blog);
 
