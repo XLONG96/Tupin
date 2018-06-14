@@ -4,16 +4,18 @@ package com.xlong.tupin.Utils;
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.CannedAccessControlList;
 import com.aliyun.oss.model.OSSObject;
+import com.aliyun.oss.model.ObjectMetadata;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class OSSCilentUtils {
     // endpoint以杭州为例，其它region请按实际情况填写
-    private static final String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
+    private static final String endpoint = "http://oss-cn-shenzhen-internal.aliyuncs.com";
     // 云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用RAM子账号进行API访问或日常运维
-    private static final String accessKeyId = "";
-    private static final String accessKeySecret = "";
+    private static final String accessKeyId = "LTAIwxwWuz8rBUAp";
+    private static final String accessKeySecret = "ziYEIMvZVF60FabZcGNxmb2C4YP0zC";
     // bucket name
     private static final String bucketName = "tupin";
     // 创建OSSClient实例
@@ -26,9 +28,32 @@ public class OSSCilentUtils {
         ossClient.putObject(bucketName, filedir, inputStream);
 
         // 上传文件的url
-        String url = host + filedir;
+        String url = filedir;
 
         return url;
+    }
+
+    public static byte[] OSSDownload(String filedir) {
+        byte[] data;
+
+        // 获取请求头信息
+        ObjectMetadata metadata = ossClient.getObjectMetadata(bucketName, filedir);
+        long len = metadata.getContentLength();
+
+        data = new byte[(int)len];
+
+        // 获取目标文件流
+        OSSObject ossObject = ossClient.getObject(bucketName, filedir);
+        InputStream input = ossObject.getObjectContent();
+
+        try {
+            input.read(data);
+            input.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return data;
     }
 
     public static void OSSDelete(String folder, String key){

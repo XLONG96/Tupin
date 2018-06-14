@@ -151,6 +151,7 @@ public class OSSUploadController {
         if(!cover.isEmpty() && !src.isEmpty()){
 
             String srcFileName = src.getOriginalFilename();
+            String musicName;
 
             OSSCilentUtils.createFolder(coverdir);
             String coverUrl = OSSCilentUtils.OSSUpload(cover.getInputStream(), coverdir + filename);
@@ -158,12 +159,18 @@ public class OSSUploadController {
             OSSCilentUtils.createFolder(srcdir);
             String srcUrl = OSSCilentUtils.OSSUpload(src.getInputStream(), srcdir + srcFileName);
 
+            String[] tmps = srcFileName.split("\\.");
+            if (tmps.length < 2) {
+                musicName = tmps[0];
+            } else {
+                musicName = srcFileName;
+            }
 
             Music music = new Music();
 
             music.setCover(coverUrl);
             music.setSrc(srcUrl);
-            music.setTitle(srcFileName);
+            music.setTitle(musicName);
 
             musicRepository.saveAndFlush(music);
         }
