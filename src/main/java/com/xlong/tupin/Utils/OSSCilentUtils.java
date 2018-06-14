@@ -14,8 +14,8 @@ public class OSSCilentUtils {
     // endpoint以杭州为例，其它region请按实际情况填写
     private static final String endpoint = "http://oss-cn-shenzhen-internal.aliyuncs.com";
     // 云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用RAM子账号进行API访问或日常运维
-    private static final String accessKeyId = "LTAIwxwWuz8rBUAp";
-    private static final String accessKeySecret = "ziYEIMvZVF60FabZcGNxmb2C4YP0zC";
+    private static final String accessKeyId = "";
+    private static final String accessKeySecret = "";
     // bucket name
     private static final String bucketName = "tupin";
     // 创建OSSClient实例
