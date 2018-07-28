@@ -28,7 +28,7 @@ import java.util.UUID;
 @Controller
 public class OSSUploadController {
     private static Logger logger = LoggerFactory.getLogger(OSSUploadController.class);
-
+/*
     @Autowired
     TupinRepository tupinRepository;
 
@@ -177,4 +177,5 @@ public class OSSUploadController {
 
         return "personal-music";
     }
+    */
 }

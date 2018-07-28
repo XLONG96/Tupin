@@ -1,10 +1,10 @@
 # Tupin - A Blog Web base on SpringBoot
 
-基于SpringBoot搭建的个人博客网站，首页支持异步加载图片瀑布流，支持小清新相册翻页展示，支持基于Markdown语法的博客的发布，支持评论和留言功能
+基于SpringBoot搭建的个人博客网站，首页支持异步加载图片瀑布流，首页支持自定义音乐播放，支持小清新相册翻页展示，支持基于Markdown语法的博客的发布，支持评论和留言功能，支持站内文章模糊查询
 
 ## 搭建环境
 
-* Spring Boot + JPA + Thymeleaf + Maven
+* Spring Boot + JPA + Thymeleaf + Maven + ElasticSerach
 
 * JS插件
   - Magnific Popup.js：图片弹出层插件
@@ -43,3 +43,7 @@
 ![](img/10.jpg)
 
 ![](img/11.jpg)
+
+**文章模糊匹配查询**
+
+![](img/12.jpg)

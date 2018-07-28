@@ -2,19 +2,21 @@ package com.xlong.tupin.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xlong.tupin.Entity.Blog;
-import com.xlong.tupin.Entity.Comment;
-import com.xlong.tupin.Entity.Music;
-import com.xlong.tupin.Entity.Tupin;
+import com.xlong.tupin.Entity.*;
 import com.xlong.tupin.TupinRepository.*;
 import com.xlong.tupin.Utils.IpUtils;
 import com.xlong.tupin.Utils.OtherUtils;
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,13 +27,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api")
 public class ResourceController {
+    private static org.slf4j.Logger logger = LoggerFactory.getLogger(ResourceController.class);
+
     @Autowired
     private TupinRepository tupinRepository;
 
@@ -46,6 +51,9 @@ public class ResourceController {
 
     @Autowired
     private MusicRepository musicRepository;
+
+    @Autowired
+    private SummaryRepository summaryRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -180,6 +188,23 @@ public class ResourceController {
     public List<Music> getMusic(){
         List<Music> list = musicRepository.findAll();
         return list;
+    }
+
+    @RequestMapping(value="/search", method=RequestMethod.GET)
+    public List<Summary> search(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                @RequestParam(value="keyword") String keyword,
+                                @RequestParam(value = "size", defaultValue = "10") Integer size){
+        Sort sort = new Sort(Sort.Direction.DESC, "publicTime");
+        Pageable pageable = new PageRequest(page, size, sort);
+        QueryBuilder qb = QueryBuilders.boolQuery()
+                .should(QueryBuilders.matchQuery("title", keyword))
+                .should(QueryBuilders.matchQuery("blogSummary", keyword));
+        SearchQuery query =
+                new NativeSearchQueryBuilder().withQuery(qb).withPageable(pageable).build();
+        Page p =  summaryRepository.search(query);
+
+        System.out.println(p.getContent());
+        return p.getContent();
     }
 
     @Transactional

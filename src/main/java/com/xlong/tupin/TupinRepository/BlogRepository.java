@@ -17,6 +17,8 @@ public interface BlogRepository extends PagingAndSortingRepository<Blog,Long>{
 
     List<Blog> findAllByTheme(String theme);
 
+    Blog findByTitle(String title);
+
     Blog saveAndFlush(Blog blog);
 
     Blog findOne(Long id);

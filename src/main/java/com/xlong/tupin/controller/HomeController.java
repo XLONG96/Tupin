@@ -168,4 +168,9 @@ public class HomeController {
     public String about(){
         return "about";
     }
+
+    @RequestMapping(value="/search",method=RequestMethod.GET)
+    public String search(){
+        return "search";
+    }
 }

@@ -14,7 +14,7 @@ import java.io.OutputStream;
 
 @Controller
 public class OSSResourceController {
-
+/*
     @RequestMapping(value="images/{name}")
     public void getImages(@PathVariable(name = "name") String name,
                           HttpServletRequest request, HttpServletResponse response) {
@@ -29,4 +29,5 @@ public class OSSResourceController {
             e.printStackTrace();
         }
     }
+    */
 }

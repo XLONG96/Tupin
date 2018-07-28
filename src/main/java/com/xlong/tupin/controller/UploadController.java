@@ -1,13 +1,7 @@
 package com.xlong.tupin.controller;
 
-import com.xlong.tupin.Entity.Blog;
-import com.xlong.tupin.Entity.Music;
-import com.xlong.tupin.Entity.Tupin;
-import com.xlong.tupin.Entity.TupinAlbum;
-import com.xlong.tupin.TupinRepository.BlogRepository;
-import com.xlong.tupin.TupinRepository.MusicRepository;
-import com.xlong.tupin.TupinRepository.TupinAlbumRepository;
-import com.xlong.tupin.TupinRepository.TupinRepository;
+import com.xlong.tupin.Entity.*;
+import com.xlong.tupin.TupinRepository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +20,6 @@ import java.util.UUID;
 
 @Controller
 public class UploadController {
-/*
 
     private static Logger logger = LoggerFactory.getLogger(UploadController.class);
 
@@ -41,6 +34,9 @@ public class UploadController {
 
     @Autowired
     MusicRepository musicRepository;
+
+    @Autowired
+    SummaryRepository summaryRepository;
 
     @RequestMapping(value="/tupin-upload",method=RequestMethod.POST)
     public String picUpload(@RequestParam("title") String title, @RequestPart("pic") MultipartFile pic, HttpServletRequest request) throws IOException {
@@ -109,7 +105,7 @@ public class UploadController {
 
     @RequestMapping(value="/blog-upload", method=RequestMethod.POST)
     public String blogUpload(@RequestParam("title") String title,
-            @RequestParam("theme") String theme,@RequestParam("summary") String summary,
+            @RequestParam("theme") String theme, @RequestParam("summary") String summary,
                              @RequestPart("fblog") MultipartFile fblog, HttpServletRequest request) throws IOException {
         String filedir = request.getSession().getServletContext().getRealPath("/")+
                 "blogs/";
@@ -144,6 +140,16 @@ public class UploadController {
             blog.setMdContent(filedir + filename);
 
             blogRepository.saveAndFlush(blog);
+
+            // 插入ElasticSearch
+            blog = blogRepository.findByTitle(title);
+            Summary blogSummary = new Summary();
+            blogSummary.setBlogId(blog.getId());
+            blogSummary.setBlogSummary(blog.getSummary());
+            blogSummary.setPublicTime(blog.getPublicTime().toString());
+            blogSummary.setTheme(blog.getTheme());
+            blogSummary.setTitle(blog.getTitle());
+            summaryRepository.save(blogSummary);
         }
 
         return "personal-blog";
@@ -201,6 +207,6 @@ public class UploadController {
 
         return "personal-music";
     }
-*/
+
 
 }
